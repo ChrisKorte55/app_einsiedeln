@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  
+  "welcomeTitle": "Welcome",
+  "welcomeMessage": "Welcome to our Cloister Tourism App!",
+  "drawerHeader": "Menu",
+  "drawerItem1": "About the Cloister"
+}
