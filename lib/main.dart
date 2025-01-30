@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-// Import the generated localization files (after running `flutter gen-l10n`).
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '/views/main_page.dart';
+import '/views/events_calendar_page.dart';
+import '/views/about_us_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -33,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // Set the locale when not null. Otherwise, uses system locale.
       locale: _locale,
-      
+
       // These delegates make sure we have our generated strings + default Flutter localizations
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -58,9 +57,15 @@ class _MyAppState extends State<MyApp> {
         return supportedLocales.first;
       },
 
-      home: MainPage(
-        onLocaleChange: _setLocale,
-      ),
+      // Define the initial route
+      initialRoute: '/',
+
+      // Define the routes table
+      routes: {
+        '/': (context) => MainPage(onLocaleChange: _setLocale),
+        '/events_calendar_page': (context) => const EventsPage(),
+        '/about_us_page': (context) => const AboutUsPage()
+      },
     );
   }
 }

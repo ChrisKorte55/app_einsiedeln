@@ -15,7 +15,6 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appLoc.welcomeTitle),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -61,13 +60,13 @@ class MainPage extends StatelessWidget {
             ListTile(
               title: Text(appLoc.aboutTheKloister),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, '/about_us_page'); // Close the drawer
               },
             ),
             ListTile(
               title: Text(appLoc.eventsCalendar),
               onTap: () {
-                Navigator.pop(context); // Optionally close the drawer
+                Navigator.pushNamed(context, '/events_calendar_page'); // Optionally close the drawer
               },
             ),
             ListTile(
