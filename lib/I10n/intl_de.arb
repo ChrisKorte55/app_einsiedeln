@@ -1,8 +1,13 @@
 {
   "@@locale": "de",
   
-  "welcomeTitle": "Willkommen",
-  "welcomeMessage": "Willkommen zu unserer Kloster-Tourismus-App!",
+  "welcomeTitle": "Willkommen im Kloster Einsiedeln",
+  "welcomeMessage": "Wir freuen uns auf Ihren Besuch und heissen Sie schon jetzt herzlich willkommen!",
+  "welcomeMonks": "-Abt Urban Federer und die Mönche des Klosters Einsiedeln",
   "drawerHeader": "Menü",
-  "drawerItem1": "Über das Kloster"
+  "aboutTheKloister": "Über das Kloster",
+  "eventsCalendar": "Event Kalender",
+  "liveStream": "Live-Stream Gottesdienst",
+  "selfGuidedTour": "Kloster Tour",
+  "onlineShop": "Online-Shop"
 }
