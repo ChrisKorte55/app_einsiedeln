@@ -75,7 +75,6 @@ class TourLocationState extends State<TourLocation> {
                       return ListTile(
                         leading: const Icon(Icons.location_on),
                         title: Text(location['name']),
-                        subtitle: Text(location['description']),
                         onTap: () {
                           Navigator.push(
                             context,
