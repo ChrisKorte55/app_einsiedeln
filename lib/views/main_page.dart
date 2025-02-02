@@ -72,19 +72,19 @@ class MainPage extends StatelessWidget {
             ListTile(
               title: Text(appLoc.liveStream),
               onTap: () {
-                Navigator.pop(context); // Optionally close the drawer
+                Navigator.pushNamed(context, '/live_stream_page'); // Optionally close the drawer
               },
             ),
             ListTile(
               title: Text(appLoc.selfGuidedTour),
               onTap: () {
-                Navigator.pop(context); // Optionally close the drawer
+                Navigator.pushNamed(context, '/self_guided_tour_page'); // Optionally close the drawer
               },
             ),
             ListTile(
               title: Text(appLoc.onlineShop),
               onTap: () {
-                Navigator.pop(context); // Optionally close the drawer
+                Navigator.pushNamed(context, '/online_shop_page'); // Optionally close the drawer
               },
             ),
           ],
@@ -95,7 +95,7 @@ class MainPage extends StatelessWidget {
           Expanded(
             flex: 2, // This gives the image 2/3 of the available space
             child: Image.asset(
-              'images/KlosterInsideMain.jpg',
+              'images/DSC_0754.jpg',
               fit: BoxFit.cover, // Adjust to fit the content within the current layout space
               width: MediaQuery.of(context).size.width, // Match the screen's width
             ),

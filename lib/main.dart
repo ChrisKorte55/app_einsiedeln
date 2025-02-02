@@ -4,6 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '/views/main_page.dart';
 import '/views/events_calendar_page.dart';
 import '/views/about_us_page.dart';
+import '/views/live_stream_page.dart';
+import '/views/online_shop_page.dart';
+import '/views/self_guided_tour_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,7 +67,10 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => MainPage(onLocaleChange: _setLocale),
         '/events_calendar_page': (context) => const EventsPage(),
-        '/about_us_page': (context) => const AboutUsPage()
+        '/about_us_page': (context) => const AboutUsPage(),
+        '/live_stream_page': (context) => const LiveStreamPage(),
+        '/online_shop_page': (context) => const OnlineShopPage(),
+        '/self_guided_tour_page': (context) => const TourLocation()
       },
     );
   }
