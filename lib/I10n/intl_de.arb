@@ -11,6 +11,8 @@
   "selfGuidedTour": "Kloster Tour",
   "onlineShop": "Online-Shop",
   "kunstHistorischEinleitung" : "Am Anfang der...",
-  "tourHomeText" : "TourDeutsch"
+  "tourHomeText" : "Tour Angebote:",
+  "religiousTour" : "Religöse Tour",
+  "historyTour" : "Geschichte Tour"
 
 }

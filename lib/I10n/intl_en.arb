@@ -11,7 +11,9 @@
   "selfGuidedTour": "Cloister Tour",
   "onlineShop": "Online Shop",
   "kunstHistorischEinleitung" : "Am Anfang der...",
-  "tourHomeText" : "TourEnglish"
+  "tourHomeText" : "Offered Tours:",
+  "religiousTour" : "Religious Tour",
+  "historyTour" : "History Tour"
 }
 
 
