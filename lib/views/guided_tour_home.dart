@@ -6,13 +6,15 @@ class TourLangHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLoc = AppLocalizations.of(context)!; // Fetch localized strings
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tour Home"),
+        title: Text(appLoc.tourHomeText), // Use localized title
         backgroundColor: Colors.white,
       ),
       body: Center(
-        child: Text(appLoc.TourHomeText),
+        child: Text(appLoc.tourHomeText), // Use localized body text
       ),
     );
   }

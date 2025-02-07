@@ -10,8 +10,8 @@
   "liveStream": "Live-Stream Services",
   "selfGuidedTour": "Cloister Tour",
   "onlineShop": "Online Shop",
-  "kunstHistorischEinleitung" : "Am Anfang der..."
-  "TourHomeText" : "TourEnglish"
+  "kunstHistorischEinleitung" : "Am Anfang der...",
+  "tourHomeText" : "TourEnglish"
 }
 
 

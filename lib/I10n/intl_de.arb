@@ -10,7 +10,7 @@
   "liveStream": "Live-Stream Gottesdienst",
   "selfGuidedTour": "Kloster Tour",
   "onlineShop": "Online-Shop",
-  "kunstHistorischEinleitung" : "Am Anfang der..."
-  "TourHomeText" : "TourDeutsch"
+  "kunstHistorischEinleitung" : "Am Anfang der...",
+  "tourHomeText" : "TourDeutsch"
 
 }

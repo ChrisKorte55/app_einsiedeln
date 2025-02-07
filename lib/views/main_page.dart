@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import '/services/locale_provider.dart';
 
 class MainPage extends StatelessWidget {
-  final Function(Locale) onLocaleChange;
-
-  const MainPage({
-    Key? key,
-    required this.onLocaleChange,
-  }) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +22,17 @@ class MainPage extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: GestureDetector(
               onTap: () {
+                final languageProvider =
+                    Provider.of<LanguageProvider>(context, listen: false);
                 Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
                     ? const Locale('en')
                     : const Locale('de');
-                onLocaleChange(newLocale);
+                languageProvider.setLocale(newLocale);
               },
-              child: Text(
+              child: const Text(
                 'DE | EN',
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
@@ -60,31 +59,31 @@ class MainPage extends StatelessWidget {
             ListTile(
               title: Text(appLoc.aboutTheKloister),
               onTap: () {
-                Navigator.pushNamed(context, '/about_us_page'); // Close the drawer
+                Navigator.pushNamed(context, '/about_us_page');
               },
             ),
             ListTile(
               title: Text(appLoc.eventsCalendar),
               onTap: () {
-                Navigator.pushNamed(context, '/events_calendar_page'); // Optionally close the drawer
+                Navigator.pushNamed(context, '/events_calendar_page');
               },
             ),
             ListTile(
               title: Text(appLoc.liveStream),
               onTap: () {
-                Navigator.pushNamed(context, '/live_stream_page'); // Optionally close the drawer
+                Navigator.pushNamed(context, '/live_stream_page');
               },
             ),
             ListTile(
               title: Text(appLoc.selfGuidedTour),
               onTap: () {
-                Navigator.pushNamed(context, '/self_guided_tour_page'); // Optionally close the drawer
+                Navigator.pushNamed(context, '/self_guided_tour_page');
               },
             ),
             ListTile(
               title: Text(appLoc.onlineShop),
               onTap: () {
-                Navigator.pushNamed(context, '/online_shop_page'); // Optionally close the drawer
+                Navigator.pushNamed(context, '/online_shop_page');
               },
             ),
           ],
@@ -96,8 +95,8 @@ class MainPage extends StatelessWidget {
             flex: 2, // This gives the image 2/3 of the available space
             child: Image.asset(
               'images/DSC_0754.jpg',
-              fit: BoxFit.cover, // Adjust to fit the content within the current layout space
-              width: MediaQuery.of(context).size.width, // Match the screen's width
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
             ),
           ),
           Expanded(
@@ -113,11 +112,11 @@ class MainPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 10),  // Space between texts
+                    const SizedBox(height: 10), // Space between texts
                     Text(
-                      appLoc.welcomeMonks,  // Example additional text
+                      appLoc.welcomeMonks, // Example additional text
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.grey),  // Example style for second text
+                      style: const TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ],
                 ),
