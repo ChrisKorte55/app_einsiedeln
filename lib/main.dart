@@ -6,7 +6,7 @@ import '/views/events_calendar_page.dart';
 import '/views/about_us_page.dart';
 import '/views/live_stream_page.dart';
 import '/views/online_shop_page.dart';
-import '/views/self_guided_tour_page.dart';
+import '/views/guided_tour_home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
         '/about_us_page': (context) => const AboutUsPage(),
         '/live_stream_page': (context) => const LiveStreamPage(),
         '/online_shop_page': (context) => const OnlineShopPage(),
-        '/self_guided_tour_page': (context) => const TourLocation()
+        '/self_guided_tour_page': (context) => const TourLangHome()
       },
     );
   }
