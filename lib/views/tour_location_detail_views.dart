@@ -21,7 +21,7 @@ class LocationDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Image.asset('assets/$imageName', fit: BoxFit.cover),
+            Image.asset('assets/images/$imageName', fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(description, style: const TextStyle(fontSize: 16)),

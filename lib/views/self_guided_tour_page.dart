@@ -61,7 +61,7 @@ class TourLocationState extends State<TourLocation> {
                 children: [
                   InteractiveBlueprint(
                     locations: locations,
-                    imagePath: 'assets/floorplan.png',
+                    imagePath: 'assets/images/floorplan.png',
                   ),
                   ListView.builder(
                     shrinkWrap: true,
