@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';  // Localized string handling
 import 'tour_location_detail_views.dart'; // Ensure this is the correct import path for LocationDetailPage
 
 class TourLocation extends StatefulWidget {
@@ -45,9 +45,11 @@ class TourLocationState extends State<TourLocation> {
 
   @override
   Widget build(BuildContext context) {
+    final appLoc = AppLocalizations.of(context)!; // Access localized strings
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tour Locations"),
+        title: Text(appLoc.tourHomeText), // Localized title from AppLocalizations
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: loadCSV(),
@@ -77,6 +79,7 @@ class TourLocationState extends State<TourLocation> {
                       return ListTile(
                         leading: const Icon(Icons.location_on),
                         title: Text(location['name']),
+                        subtitle: Text(location['description']),
                         onTap: () {
                           Navigator.push(
                             context,
