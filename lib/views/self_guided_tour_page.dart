@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'tour_location_detail_views.dart';
+import 'tour_location_detail_views.dart'; // Ensure this is the correct import path for LocationDetailPage
 
 class TourLocation extends StatefulWidget {
-  final String tourType; // "religious" or "historical"
+  final String tourType; // "religious" or "spiritual"
 
   const TourLocation({Key? key, required this.tourType}) : super(key: key);
 
@@ -14,105 +14,91 @@ class TourLocation extends StatefulWidget {
 }
 
 class TourLocationState extends State<TourLocation> {
-  String tourIntroText = "Loading...";
-  List<Map<String, dynamic>> locations = [];
+  Future<List<Map<String, dynamic>>> loadCSV() async {
+    try {
+      final csvData = await rootBundle.loadString('assets/kloster_tour_texts.csv');
+      List<List<dynamic>> csvList = CsvToListConverter(eol: '\n', shouldParseNumbers: false).convert(csvData);
 
-  @override
-  void initState() {
-    super.initState();
-    _loadTourData();
-  }
+      if (csvList.isNotEmpty) {
+        csvList.removeAt(0); // Remove header row
+        final locale = Localizations.localeOf(context).languageCode;
+        bool isGerman = locale == "de";
+        int descriptionIndex = widget.tourType == 'religious' ?
+            (isGerman ? 2 : 3) : (isGerman ? 4 : 5);
 
-  Future<void> _loadTourData() async {
-    final csvData = await rootBundle.loadString('assets/kloster_tour_texts.csv');
-    List<List<dynamic>> csvList = CsvToListConverter(eol: '\n', shouldParseNumbers: false).convert(csvData);
-
-    if (csvList.isNotEmpty) {
-      csvList.removeAt(0); // Remove header row
-
-      final locale = Localizations.localeOf(context).languageCode;
-      bool isGerman = locale == "de";
-
-      // Determine the correct column index
-      int columnIndex = widget.tourType == 'religious' ? (isGerman ? 6 : 7) : (isGerman ? 4 : 5);
-
-      setState(() {
-        tourIntroText = csvList[0][columnIndex].toString(); // Load the intro text
-
-        // Extract correct tour data
-        locations = csvList.map((row) {
+        return csvList.map((row) {
           return {
             'name': row[1].toString(),
-            'description': row[columnIndex].toString(),
-            'imageName': row[8].toString(),
-            'x': double.parse(row[9].toString()),
-            'y': double.parse(row[10].toString()),
+            'description': row[descriptionIndex].toString(),
+            'imageName': row[6].toString(),
+            'x': double.parse(row[7].toString()),
+            'y': double.parse(row[8].toString()),
           };
         }).toList();
-      });
+      }
+    } catch (e) {
+      print('Error loading CSV data: $e');
+      throw Exception('Failed to load data');
     }
+    return [];
   }
 
   @override
   Widget build(BuildContext context) {
-    final appLoc = AppLocalizations.of(context)!;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.tourType == 'religious' ? appLoc.religiousTour : appLoc.historyTour),
+        title: const Text("Tour Locations"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              tourIntroText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: locations.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          InteractiveBlueprint(
-                            locations: locations,
-                            imagePath: 'assets/images/floorplan.png',
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: locations.length,
-                            itemBuilder: (context, index) {
-                              var location = locations[index];
-                              return ListTile(
-                                leading: const Icon(Icons.location_on),
-                                title: Text(location['name']),
-                                subtitle: Text(location['description']),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => LocationDetailPage(
-                                        locationName: location['name'],
-                                        description: location['description'],
-                                        imageName: location['imageName'],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-            ),
-          ],
-        ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: loadCSV(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error.toString()}'));
+          } else if (snapshot.hasData) {
+            var locations = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  InteractiveBlueprint(
+                    locations: locations,
+                    imagePath: 'assets/images/floorplan.png',
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: locations.length,
+                    itemBuilder: (context, index) {
+                      var location = locations[index];
+                      if (location.isEmpty) {
+                        return SizedBox.shrink();
+                      }
+                      return ListTile(
+                        leading: const Icon(Icons.location_on),
+                        title: Text(location['name']),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LocationDetailPage(
+                                locationName: location['name'],
+                                description: location['description'],
+                                imageName: location['imageName'],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return const Center(child: Text("No data available"));
+          }
+        },
       ),
     );
   }
@@ -129,12 +115,7 @@ class InteractiveBlueprint extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         double screenWidth = constraints.maxWidth;
-
-        // Calculate the displayed height of the image to maintain the aspect ratio
-        const double imageIntrinsicWidth = 1000.0; // Image's actual width
-        const double imageIntrinsicHeight = 1000.0; // Image's actual height
-
-        double imageHeight = screenWidth * (imageIntrinsicHeight / imageIntrinsicWidth);
+        double imageHeight = screenWidth; // Assumes a square aspect ratio for simplicity
 
         return Stack(
           children: [
@@ -143,12 +124,12 @@ class InteractiveBlueprint extends StatelessWidget {
               height: imageHeight,
               child: Image.asset(
                 imagePath,
-                fit: BoxFit.contain, // Ensure the image is completely visible
+                fit: BoxFit.contain,
               ),
             ),
             ...locations.map((location) {
-              double scaledX = (location['x'] as double) / imageIntrinsicWidth * screenWidth;
-              double scaledY = (location['y'] as double) / imageIntrinsicHeight * imageHeight;
+              double scaledX = (location['x'] as double) * screenWidth;
+              double scaledY = (location['y'] as double) * imageHeight;
               return Positioned(
                 left: scaledX,
                 top: scaledY,

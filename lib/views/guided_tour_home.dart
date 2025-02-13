@@ -13,22 +13,18 @@ class TourLangHome extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 2,
+        title: Text(appLoc.tourHomeText), // Ensure you have this in your localizations
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background Image
           Image.asset(
-            'assets/images/DSC_6772.jpg', // Replace with the correct image asset
+            'assets/images/DSC_6772.jpg',
             fit: BoxFit.cover,
           ),
-
-          // Overlay for better readability
           Container(
-            color: const Color.fromRGBO(0, 0, 0, 0.4), // Semi-transparent overlay
+            color: const Color.fromRGBO(0, 0, 0, 0.4),
           ),
-
-          // Centered Content
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -51,9 +47,9 @@ class TourLangHome extends StatelessWidget {
               const SizedBox(height: 30),
               _buildTourButton(
                 context,
-                title: appLoc.historyTour,
-                icon: Icons.history,
-                tourType: 'historical',
+                title: appLoc.religiousTour,
+                icon: Icons.spa,
+                tourType: 'spiritual',
               ),
             ],
           ),
