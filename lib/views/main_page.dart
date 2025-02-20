@@ -90,7 +90,7 @@ class MainPage extends StatelessWidget {
             left: 10,
             child: IconButton(
               icon: Icon(Icons.menu, color: Colors.white),
-              iconSize: 40.0,  // Adjusted icon size
+              iconSize: 40.0,
               onPressed: () => _scaffoldKey.currentState?.openDrawer(),
             ),
           ),
@@ -112,6 +112,15 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: MediaQuery.of(context).size.height / 7, // Adjust this value to position the overlay image as needed
+            left: MediaQuery.of(context).size.width / 2 - 100, // Centers the image horizontally, adjust 50 to the half of your image width if different
+            child: Image.asset(
+              'images/klosterbirds.png',
+              width: 200, // Adjust the size as needed
+              fit: BoxFit.cover,
+            ),
+          ),
         ],
       ),
     );
@@ -119,8 +128,8 @@ class MainPage extends StatelessWidget {
 
   Widget _buildDrawerItem(IconData icon, String title, BuildContext context, String routeName) {
     return ListTile(
-      leading: Icon(icon, color: Colors.black), // Drawer Icon Color
-      title: Text(title, style: TextStyle(color: Colors.black)), // Drawer Text Color 
+      leading: Icon(icon, color: Colors.black),
+      title: Text(title, style: TextStyle(color: Colors.black)),
       onTap: () {
         Navigator.pushNamed(context, routeName);
       },
