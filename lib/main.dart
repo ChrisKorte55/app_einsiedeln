@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
 
       // Define the routes table
       routes: {
-        '/': (context) => const MainPage(),
+        '/': (context) => MainPage(),
         '/events_calendar_page': (context) => const EventsPage(),
         '/about_us_page': (context) => const AboutUsPage(),
         '/live_stream_page': (context) => const LiveStreamPage(),
