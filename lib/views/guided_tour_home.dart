@@ -74,8 +74,8 @@ class TourLangHome extends StatelessWidget {
       height: 70,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white, // Updated from 'primary'
-          foregroundColor: Colors.black, // Text and icon color
+          backgroundColor: Colors.white, 
+          foregroundColor: Colors.black, 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35),
           ),

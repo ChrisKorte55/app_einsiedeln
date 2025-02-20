@@ -8,7 +8,7 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About Us"),
+        title: const Text("About Us Page"),
         backgroundColor: Colors.white,
       ),
       body: Center(

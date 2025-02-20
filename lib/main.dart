@@ -9,6 +9,7 @@ import '/views/about_us_page.dart';
 import '/views/live_stream_page.dart';
 import '/views/online_shop_page.dart';
 import '/views/guided_tour_home.dart';
+import '/views/salve_newsletter_page.dart';
 import '/services/locale_provider.dart'; // Import the LanguageProvider
 
 void main() {
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
         '/live_stream_page': (context) => const LiveStreamPage(),
         '/online_shop_page': (context) => const OnlineShopPage(),
         '/self_guided_tour_page': (context) => const TourLangHome(),
+        '/salve_newsletter_page': (context) => const SalvePage(),
       },
     );
   }

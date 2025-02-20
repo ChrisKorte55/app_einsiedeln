@@ -9,13 +9,17 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
+    final primaryColor = Color.fromRGBO(176, 148, 60, 1);  // Main golden color
+    final appBarColor = Color.fromRGBO(245, 245, 245, 1);  // Cream color for AppBar
+    final highlightColor = Color.fromRGBO(53, 42, 102, 1);  // Dark blue for contrast
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: appBarColor,  // Cream colored AppBar
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(Icons.menu),
+              icon: Icon(Icons.menu, color: Colors.black),  // Black icon for contrast
               onPressed: () => Scaffold.of(context).openDrawer(),
             );
           },
@@ -32,9 +36,9 @@ class MainPage extends StatelessWidget {
                     : const Locale('de');
                 languageProvider.setLocale(newLocale);
               },
-              child: const Text(
+              child: Text(
                 'DE | EN',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 20),  // Black text for visibility
               ),
             ),
           ),
@@ -44,55 +48,36 @@ class MainPage extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(176, 148, 60, 1),
-              ),
-              child: Text(
-                appLoc.drawerHeader,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            SizedBox(
+              height: 120,  // Increased height for better visual impact
+              child: DrawerHeader(
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: primaryColor,  // Golden color for the header
+                ),
+                child: Text(
+                  appLoc.drawerHeader,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
               ),
             ),
-            ListTile(
-              title: Text(appLoc.aboutTheKloister),
-              onTap: () {
-                Navigator.pushNamed(context, '/about_us_page');
-              },
-            ),
-            ListTile(
-              title: Text(appLoc.eventsCalendar),
-              onTap: () {
-                Navigator.pushNamed(context, '/events_calendar_page');
-              },
-            ),
-            ListTile(
-              title: Text(appLoc.liveStream),
-              onTap: () {
-                Navigator.pushNamed(context, '/live_stream_page');
-              },
-            ),
-            ListTile(
-              title: Text(appLoc.selfGuidedTour),
-              onTap: () {
-                Navigator.pushNamed(context, '/self_guided_tour_page');
-              },
-            ),
-            ListTile(
-              title: Text(appLoc.onlineShop),
-              onTap: () {
-                Navigator.pushNamed(context, '/online_shop_page');
-              },
-            ),
+            _buildDrawerItem(Icons.info_outline, appLoc.aboutTheKloister, context, '/about_us_page'),
+            _buildDrawerItem(Icons.event, appLoc.eventsCalendar, context, '/events_calendar_page'),
+            _buildDrawerItem(Icons.live_tv, appLoc.liveStream, context, '/live_stream_page'),
+            _buildDrawerItem(Icons.mail_outline, appLoc.newsLetter, context, '/salve_newsletter_page'),
+            _buildDrawerItem(Icons.map, appLoc.selfGuidedTour, context, '/self_guided_tour_page'),
+            _buildDrawerItem(Icons.shopping_cart, appLoc.onlineShop, context, '/online_shop_page'),
           ],
         ),
       ),
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 2, // This gives the image 2/3 of the available space
+            flex: 2,
             child: Image.asset(
               'images/DSC_0754.jpg',
               fit: BoxFit.cover,
@@ -100,7 +85,7 @@ class MainPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 1, // This gives the text 1/3 of the available space
+            flex: 1,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -110,13 +95,13 @@ class MainPage extends StatelessWidget {
                     Text(
                       appLoc.welcomeMessage,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 24, color: Colors.black),
                     ),
-                    const SizedBox(height: 10), // Space between texts
+                    const SizedBox(height: 10),
                     Text(
-                      appLoc.welcomeMonks, // Example additional text
+                      appLoc.welcomeMonks,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -125,6 +110,16 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, String routeName) {
+    return ListTile(
+      leading: Icon(icon, color: Color.fromRGBO(53, 42, 102, 1)),  // Dark blue icons for contrast
+      title: Text(title),
+      onTap: () {
+        Navigator.pushNamed(context, routeName);
+      },
     );
   }
 }
