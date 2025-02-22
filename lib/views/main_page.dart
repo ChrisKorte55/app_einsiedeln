@@ -19,18 +19,18 @@ class MainPage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             SizedBox(
-              height: 120,
+              height: 70,
               child: DrawerHeader(
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(176, 148, 60, 1),  // Main golden color
+                  color: Colors.white,  // Main golden color
                 ),
                 child: Text(
                   appLoc.drawerHeader,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
+                    color: Colors.black,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -51,7 +51,7 @@ class MainPage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Image.asset(
-                  'images/DSC_0754.jpg',
+                  'assets/images/DSC_0754.jpg',
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -116,7 +116,7 @@ class MainPage extends StatelessWidget {
             top: MediaQuery.of(context).size.height / 7, // Adjust this value to position the overlay image as needed
             left: MediaQuery.of(context).size.width / 2 - 100, // Centers the image horizontally, adjust 50 to the half of your image width if different
             child: Image.asset(
-              'images/klosterbirds.png',
+              'assets/images/klosterbirds.png',
               width: 200, // Adjust the size as needed
               fit: BoxFit.cover,
             ),
