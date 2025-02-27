@@ -1,12 +1,49 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '/services/locale_provider.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
 
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  final List<String> _imagePaths = [
+    'assets/images/kloster_front_snow_vert.jpg',
+    'assets/images/kloster_statue_vert.jpg',
+    'assets/images/kloster_grass_vert.jpg',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      if (_currentPage < _imagePaths.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +61,11 @@ class MainPage extends StatelessWidget {
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,  // Main golden color
+                  color: Colors.white,
                 ),
                 child: Text(
                   appLoc.drawerHeader,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                   ),
@@ -50,10 +87,16 @@ class MainPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Image.asset(
-                  'assets/images/DSC_0754.jpg',
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: _imagePaths.length,
+                  itemBuilder: (context, index) {
+                    return Image.asset(
+                      _imagePaths[index],
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                    );
+                  },
                 ),
               ),
               Expanded(
@@ -69,13 +112,13 @@ class MainPage extends StatelessWidget {
                           Text(
                             appLoc.welcomeMessage,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            style: const TextStyle(fontSize: 18, color: Colors.black),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             appLoc.welcomeMonks,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                            style: const TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                         ],
                       ),
@@ -89,7 +132,7 @@ class MainPage extends StatelessWidget {
             top: MediaQuery.of(context).padding.top + 10,
             left: 10,
             child: IconButton(
-              icon: Icon(Icons.menu, color: Colors.white),
+              icon: const Icon(Icons.menu, color: Colors.white),
               iconSize: 40.0,
               onPressed: () => _scaffoldKey.currentState?.openDrawer(),
             ),
@@ -99,25 +142,24 @@ class MainPage extends StatelessWidget {
             right: 10,
             child: GestureDetector(
               onTap: () {
-                final languageProvider =
-                    Provider.of<LanguageProvider>(context, listen: false);
+                final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
                 Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
                     ? const Locale('en')
                     : const Locale('de');
                 languageProvider.setLocale(newLocale);
               },
-              child: Text(
+              child: const Text(
                 'DE | EN',
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height / 7, // Adjust this value to position the overlay image as needed
-            left: MediaQuery.of(context).size.width / 2 - 100, // Centers the image horizontally, adjust 50 to the half of your image width if different
+            top: MediaQuery.of(context).size.height / 7,
+            left: MediaQuery.of(context).size.width / 2 - 100,
             child: Image.asset(
               'assets/images/klosterbirds.png',
-              width: 200, // Adjust the size as needed
+              width: 200,
               fit: BoxFit.cover,
             ),
           ),
@@ -129,7 +171,7 @@ class MainPage extends StatelessWidget {
   Widget _buildDrawerItem(IconData icon, String title, BuildContext context, String routeName) {
     return ListTile(
       leading: Icon(icon, color: Colors.black),
-      title: Text(title, style: TextStyle(color: Colors.black)),
+      title: Text(title, style: const TextStyle(color: Colors.black)),
       onTap: () {
         Navigator.pushNamed(context, routeName);
       },
