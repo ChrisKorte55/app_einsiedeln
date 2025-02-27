@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
             _buildDrawerItem(Icons.event, appLoc.eventsCalendar, context, '/events_calendar_page'),
             _buildDrawerItem(Icons.live_tv, appLoc.liveStream, context, '/live_stream_page'),
             _buildDrawerItem(Icons.mail_outline, appLoc.newsLetter, context, '/salve_newsletter_page'),
-            _buildDrawerItem(Icons.map, appLoc.selfGuidedTour, context, '/self_guided_tour_page'),
+            _buildDrawerItem(Icons.map, appLoc.selfGuidedTour, context, '/guided_tour_home'),
             _buildDrawerItem(Icons.shopping_cart, appLoc.onlineShop, context, '/online_shop_page'),
           ],
         ),

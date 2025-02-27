@@ -10,12 +10,16 @@ import '/views/live_stream_page.dart';
 import '/views/online_shop_page.dart';
 import '/views/guided_tour_home.dart';
 import '/views/salve_newsletter_page.dart';
-import '/services/locale_provider.dart'; // Import the LanguageProvider
+import '/services/locale_provider.dart'; 
+import '/services/tour_type_provider.dart'; 
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => LanguageProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (context) => TourTypeProvider()), // Add TourTypeProvider
+      ],
       child: const MyApp(),
     ),
   );
@@ -67,7 +71,7 @@ class MyApp extends StatelessWidget {
         '/about_us_page': (context) => const AboutUsPage(),
         '/live_stream_page': (context) => const LiveStreamPage(),
         '/online_shop_page': (context) => const OnlineShopPage(),
-        '/self_guided_tour_page': (context) => const TourLangHome(),
+        '/guided_tour_home': (context) => GuidedTourHome(),
         '/salve_newsletter_page': (context) => const SalvePage(),
       },
     );

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
@@ -65,7 +66,7 @@ class TourLocationState extends State<TourLocation> {
                 children: [
                   InteractiveBlueprint(
                     locations: locations,
-                    imagePath: 'assets/images/floorplan.png',
+                    imagePath: 'assets/images/floorplanwithtrees2.png',
                   ),
                   ListView.builder(
                     shrinkWrap: true,
@@ -158,3 +159,4 @@ class InteractiveBlueprint extends StatelessWidget {
     );
   }
 }
+*/
