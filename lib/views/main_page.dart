@@ -20,12 +20,15 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_front_snow_vert.jpg',
     'assets/images/kloster_statue_vert.jpg',
     'assets/images/kloster_grass_vert.jpg',
+    'assets/images/kloster_sunset.jpg',
+    'assets/images/kloster_chandelier.jpg',
+    'assets/images/kloster_facade.jpg'
   ];
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 4), (Timer timer) {
       if (_currentPage < _imagePaths.length - 1) {
         _currentPage++;
       } else {
@@ -33,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
     });

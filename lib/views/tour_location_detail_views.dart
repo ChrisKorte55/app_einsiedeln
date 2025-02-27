@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:app_einsiedeln/services/csv_loader.dart';
 import 'package:app_einsiedeln/models/tour_location_csv.dart';
@@ -43,47 +44,57 @@ class InteractiveBlueprint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InteractiveViewer(
-      panEnabled: true, // Enable panning
-      scaleEnabled: true, // Enable scaling
-      minScale: 0.5,
-      maxScale: 2.5,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          double screenWidth = constraints.maxWidth;
-          double screenHeight = screenWidth * (originalImageHeight / originalImageWidth);
+    return Center(
+      child: InteractiveViewer(
+        panEnabled: true,
+        scaleEnabled: true,
+        minScale: 0.5,
+        maxScale: 2.5,
+        child: AspectRatio(
+          aspectRatio: originalImageWidth / originalImageHeight,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              double displayWidth = constraints.maxWidth;
+              double displayHeight = constraints.maxHeight;
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Stack(
+              return Stack(
                 children: [
                   Image.asset(
                     'assets/images/floorplanwithtrees2.png',
-                    width: screenWidth,
-                    height: screenHeight,
+                    width: displayWidth,
+                    height: displayHeight,
                     fit: BoxFit.contain,
                   ),
                   ...locations.map((location) {
-                    // Calculate fractional positions
-                    double xFraction = location.x / originalImageWidth;
-                    double yFraction = location.y / originalImageHeight;
+                    // Calculate exact position without scaling issues
+                    double xPosition = (location.x / originalImageWidth) * displayWidth;
+                    double yPosition = (location.y / originalImageHeight) * displayHeight;
 
                     return Positioned(
-                      left: xFraction * screenWidth,
-                      top: yFraction * screenHeight,
+                      left: xPosition,
+                      top: yPosition,
                       child: GestureDetector(
                         onTap: () => _showLocationDetails(context, location),
-                        child: const Icon(Icons.location_on, color: Colors.red, size: 40),
+                        child: CircleAvatar(
+                          radius: 10, // Make the icons a bit smaller
+                          backgroundColor: Colors.red,
+                          child: Text(
+                            location.id.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),
                 ],
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -94,6 +105,8 @@ class InteractiveBlueprint extends StatelessWidget {
       builder: (BuildContext context) {
         var appLoc = AppLocalizations.of(context)!;
         bool isGerman = appLoc.localeName == 'de';
+        bool isHistorical = Provider.of<TourTypeProvider>(context, listen: false).tourType == 'historical';
+
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
@@ -116,15 +129,44 @@ class InteractiveBlueprint extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 20),
                   Image.asset(
                     'assets/images/${location.mainImageName}',
                     fit: BoxFit.cover,
                   ),
+                  const SizedBox(height: 20),
+                  Text(
+                    isHistorical
+                        ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
+                        : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 20),
+                  if (location.otherImageNames.isNotEmpty)
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200,
+                        enableInfiniteScroll: false,
+                        enlargeCenterPage: true,
+                      ),
+                      items: location.otherImageNames.map((imageName) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.white,
+                              ),
+                              child: Image.asset(
+                                'assets/images/$imageName',
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
                 ],
               ),
             ),

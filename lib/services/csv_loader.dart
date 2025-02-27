@@ -8,28 +8,23 @@ class TourDataLoader {
     List<List<dynamic>> rows = const CsvToListConverter().convert(csvData);
     rows.removeAt(0); // Remove headers
 
-    // Determine the correct column indices based on tour type and language
-    int descriptionIndexHistorical = tourType == 'religious' ? (isGerman ? 2 : 3) : (isGerman ? 4 : 5);
-    int descriptionIndexSpiritual = tourType == 'religious' ? (isGerman ? 4 : 5) : (isGerman ? 2 : 3);
-
     List<TourLocation> locations = [];
     for (var row in rows) {
       // Ensure the row has enough elements to prevent "index out of range" errors
       if (row.length >= 10) {
         locations.add(TourLocation(
-          id: int.tryParse(row[0]?.toString() ?? '0') ?? 0,
-          name: row[1]?.toString() ?? 'Unknown',
-          descriptionGermanHistorical: row[descriptionIndexHistorical]?.toString() ?? 'No description available',
-          descriptionEnglishHistorical: row[descriptionIndexHistorical + 1]?.toString() ?? 'No description available',
-          descriptionGermanSpiritual: row[descriptionIndexSpiritual]?.toString() ?? 'No description available',
-          descriptionEnglishSpiritual: row[descriptionIndexSpiritual + 1]?.toString() ?? 'No description available',
-          mainImageName: row[6]?.toString() ?? '',
-          otherImageNames: row[7]?.toString().split(' ') ?? [],
-          x: double.tryParse(row[8]?.toString() ?? '0.0') ?? 0.0,
-          y: double.tryParse(row[9]?.toString() ?? '0.0') ?? 0.0,
+          id: int.tryParse((row[0]?.toString() ?? '0').trim()) ?? 0, // Handle null safely
+          name: (row[1]?.toString() ?? 'Unknown').trim(),
+          descriptionGermanHistorical: (row[2]?.toString() ?? 'No historical description (German) available').trim(),
+          descriptionEnglishHistorical: (row[3]?.toString() ?? 'No historical description (English) available').trim(),
+          descriptionGermanSpiritual: (row[4]?.toString() ?? 'No spiritual description (German) available').trim(),
+          descriptionEnglishSpiritual: (row[5]?.toString() ?? 'No spiritual description (English) available').trim(),
+          mainImageName: (row[6]?.toString() ?? '').trim(),
+          otherImageNames: (row[7]?.toString().trim().split(' ') ?? []),
+          x: double.tryParse((row[8]?.toString() ?? '0.0').trim()) ?? 0.0,
+          y: double.tryParse((row[9]?.toString() ?? '0.0').trim()) ?? 0.0,
         ));
       } else {
-        // Optionally, log or handle rows with insufficient data
         print('Skipping row with insufficient data: $row');
       }
     }
