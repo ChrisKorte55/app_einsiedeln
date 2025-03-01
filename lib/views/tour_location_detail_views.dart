@@ -38,9 +38,8 @@ class InteractiveBlueprint extends StatelessWidget {
 
   const InteractiveBlueprint({Key? key, required this.locations}) : super(key: key);
 
-  // Define the original image dimensions
-  final double originalImageWidth = 824.0;
-  final double originalImageHeight = 1077.0;
+  final double originalImageWidth = 442.0;
+  final double originalImageHeight = 734.0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +59,38 @@ class InteractiveBlueprint extends StatelessWidget {
               return Stack(
                 children: [
                   Image.asset(
-                    'assets/images/floorplanwithtrees2.png',
+                    'assets/images/floorplanzoomedin.png',
                     width: displayWidth,
                     height: displayHeight,
                     fit: BoxFit.contain,
                   ),
+                  Positioned(
+                    left: 10,
+                    top: 10,
+                    child: GestureDetector(
+                      onTap: () => _showMiniMap(context),
+                      child: Container(
+                        width: 100,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.red, width: 2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x4D000000), // 30% opacity
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/mini_map_floorplan.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   ...locations.map((location) {
-                    // Calculate exact position without scaling issues
                     double xPosition = (location.x / originalImageWidth) * displayWidth;
                     double yPosition = (location.y / originalImageHeight) * displayHeight;
 
@@ -75,17 +99,42 @@ class InteractiveBlueprint extends StatelessWidget {
                       top: yPosition,
                       child: GestureDetector(
                         onTap: () => _showLocationDetails(context, location),
-                        child: CircleAvatar(
-                          radius: 10, // Make the icons a bit smaller
-                          backgroundColor: Colors.red,
-                          child: Text(
-                            location.id.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x4D000000), // 30% opacity
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                location.id.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 4),
+                            Text(
+                              location.name,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -96,6 +145,23 @@ class InteractiveBlueprint extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showMiniMap(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Image.asset('assets/images/mini_map_floorplan.png', fit: BoxFit.cover),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -112,7 +178,7 @@ class InteractiveBlueprint extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context). size.height * 0.8,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
