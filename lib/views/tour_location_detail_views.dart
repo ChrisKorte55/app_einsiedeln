@@ -83,7 +83,7 @@ class InteractiveBlueprint extends StatelessWidget {
                             ),
                           ],
                           image: DecorationImage(
-                            image: AssetImage('assets/images/mini_map_floorplan.png'),
+                            image: AssetImage('assets/images/kloster_uebersicht.jpg'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -153,7 +153,7 @@ class InteractiveBlueprint extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Image.asset('assets/images/mini_map_floorplan.png', fit: BoxFit.cover),
+          content: Image.asset('assets/images/kloster_uebersicht.jpg', fit: BoxFit.cover),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

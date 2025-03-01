@@ -25,10 +25,12 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_facade.jpg'
   ];
 
+  int _selectedIndex = 0; // Index for navigation bar
+
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
       if (_currentPage < _imagePaths.length - 1) {
         _currentPage++;
       } else {
@@ -36,7 +38,7 @@ class _MainPageState extends State<MainPage> {
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
     });
@@ -51,39 +53,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            SizedBox(
-              height: 70,
-              child: DrawerHeader(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Text(
-                  appLoc.drawerHeader,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
-            _buildDrawerItem(Icons.info_outline, appLoc.aboutTheKloister, context, '/about_us_page'),
-            _buildDrawerItem(Icons.event, appLoc.eventsCalendar, context, '/events_calendar_page'),
-            _buildDrawerItem(Icons.live_tv, appLoc.liveStream, context, '/live_stream_page'),
-            _buildDrawerItem(Icons.mail_outline, appLoc.newsLetter, context, '/salve_newsletter_page'),
-            _buildDrawerItem(Icons.map, appLoc.selfGuidedTour, context, '/guided_tour_home'),
-            _buildDrawerItem(Icons.shopping_cart, appLoc.onlineShop, context, '/online_shop_page'),
-          ],
-        ),
-      ),
       body: Stack(
         children: [
           Column(
@@ -133,19 +106,9 @@ class _MainPageState extends State<MainPage> {
           ),
           Positioned(
             top: MediaQuery.of(context).padding.top + 10,
-            left: 10,
-            child: IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
-              iconSize: 40.0,
-              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-            ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
             right: 10,
             child: GestureDetector(
               onTap: () {
-                final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
                 Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
                     ? const Locale('en')
                     : const Locale('de');
@@ -157,27 +120,35 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 7,
-            left: MediaQuery.of(context).size.width / 2 - 100,
-            child: Image.asset(
-              'assets/images/klosterbirds.png',
-              width: 200,
-              fit: BoxFit.cover,
-            ),
-          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, String routeName) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.black),
-      title: Text(title, style: const TextStyle(color: Colors.black)),
-      onTap: () {
-        Navigator.pushNamed(context, routeName);
-      },
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          switch (index) {
+            case 0: Navigator.pushNamed(context, '/about_us_page'); break;
+            case 1: Navigator.pushNamed(context, '/events_calendar_page'); break;
+            case 2: Navigator.pushNamed(context, '/live_stream_page'); break;
+            case 3: Navigator.pushNamed(context, '/salve_newsletter_page'); break;
+            case 4: Navigator.pushNamed(context, '/guided_tour_home'); break;
+            case 5: Navigator.pushNamed(context, '/online_shop_page'); break;
+          }
+        },
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        showUnselectedLabels: true, // Ensure labels for unselected items are also shown
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.info_outline), label: appLoc.aboutTheKloister),
+          BottomNavigationBarItem(icon: Icon(Icons.event), label: appLoc.eventsCalendar),
+          BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: appLoc.liveStream),
+          BottomNavigationBarItem(icon: Icon(Icons.mail_outline), label: appLoc.newsLetter),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: appLoc.selfGuidedTour),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: appLoc.onlineShop),
+        ],
+      ),
     );
   }
 }
