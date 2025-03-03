@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '/services/locale_provider.dart';
+import '/widgets/custom_navigation_bar.dart'; // Ensure you have the correct import path
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  int _selectedIndex = 0; // Index for navigation bar
 
   final List<String> _imagePaths = [
     'assets/images/kloster_front_snow_vert.jpg',
@@ -24,8 +26,6 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_chandelier.jpg',
     'assets/images/kloster_facade.jpg'
   ];
-
-  int _selectedIndex = 0; // Index for navigation bar
 
   @override
   void initState() {
@@ -50,6 +50,20 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    switch (index) {
+      case 0: Navigator.pushNamed(context, '/about_us_page'); break;
+      case 1: Navigator.pushNamed(context, '/events_calendar_page'); break;
+      case 2: Navigator.pushNamed(context, '/live_stream_page'); break;
+      case 3: Navigator.pushNamed(context, '/salve_newsletter_page'); break;
+      case 4: Navigator.pushNamed(context, '/guided_tour_home'); break;
+      case 5: Navigator.pushNamed(context, '/online_shop_page'); break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
@@ -62,15 +76,26 @@ class _MainPageState extends State<MainPage> {
           Column(
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: _imagePaths.length,
                   itemBuilder: (context, index) {
-                    return Image.asset(
-                      _imagePaths[index],
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width,
+                    return ShaderMask(
+                      shaderCallback: (rect) {
+                        return LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [Colors.white, Colors.transparent],
+                          stops: [0.0, 0.3],
+                        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      },
+                      blendMode: BlendMode.dstOut,
+                      child: Image.asset(
+                        _imagePaths[index],
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                     );
                   },
                 ),
@@ -88,13 +113,13 @@ class _MainPageState extends State<MainPage> {
                           Text(
                             appLoc.welcomeMessage,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 18, color: Colors.black),
+                            style: TextStyle(fontSize: 20, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10),
                           Text(
                             appLoc.welcomeMonks,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 14, color: Colors.grey),
+                            style: TextStyle(fontSize: 14, color: Colors.black),
                           ),
                         ],
                       ),
@@ -110,11 +135,11 @@ class _MainPageState extends State<MainPage> {
             child: GestureDetector(
               onTap: () {
                 Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
-                    ? const Locale('en')
-                    : const Locale('de');
+                    ? Locale('en')
+                    : Locale('de');
                 languageProvider.setLocale(newLocale);
               },
-              child: const Text(
+              child: Text(
                 'DE | EN',
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
@@ -122,32 +147,9 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0: Navigator.pushNamed(context, '/about_us_page'); break;
-            case 1: Navigator.pushNamed(context, '/events_calendar_page'); break;
-            case 2: Navigator.pushNamed(context, '/live_stream_page'); break;
-            case 3: Navigator.pushNamed(context, '/salve_newsletter_page'); break;
-            case 4: Navigator.pushNamed(context, '/guided_tour_home'); break;
-            case 5: Navigator.pushNamed(context, '/online_shop_page'); break;
-          }
-        },
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black,
-        showUnselectedLabels: true, // Ensure labels for unselected items are also shown
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.info_outline), label: appLoc.aboutTheKloister),
-          BottomNavigationBarItem(icon: Icon(Icons.event), label: appLoc.eventsCalendar),
-          BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: appLoc.liveStream),
-          BottomNavigationBarItem(icon: Icon(Icons.mail_outline), label: appLoc.newsLetter),
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: appLoc.selfGuidedTour),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: appLoc.onlineShop),
-        ],
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }

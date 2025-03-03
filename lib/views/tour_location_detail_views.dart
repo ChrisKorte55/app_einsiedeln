@@ -70,14 +70,14 @@ class InteractiveBlueprint extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => _showMiniMap(context),
                       child: Container(
-                        width: 100,
-                        height: 120,
+                        width: 140,
+                        height: 100,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.red, width: 2),
                           boxShadow: [
                             BoxShadow(
                               color: Color(0x4D000000), // 30% opacity
-                              spreadRadius: 1,
+                              spreadRadius: 2,
                               blurRadius: 2,
                               offset: Offset(0, 2),
                             ),
@@ -131,8 +131,11 @@ class InteractiveBlueprint extends StatelessWidget {
                               location.name,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 10,
+                                fontSize: 12,
                               ),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
