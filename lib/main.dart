@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '/views/main_page.dart';
 import '/views/events_calendar_page.dart';
-import '/views/about_us_page.dart';
+// import '/views/about_us_page.dart';
 import '/views/live_stream_page.dart';
 import '/views/online_shop_page.dart';
 import '/views/guided_tour_home.dart';
@@ -68,7 +68,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MainPage(),
         '/events_calendar_page': (context) => const EventsPage(),
-        '/about_us_page': (context) => const AboutUsPage(),
         '/live_stream_page': (context) => const LiveStreamPage(),
         '/online_shop_page': (context) => const OnlineShopPage(),
         '/guided_tour_home': (context) => GuidedTourHome(),

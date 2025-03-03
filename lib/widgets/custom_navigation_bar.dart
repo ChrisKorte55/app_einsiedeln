@@ -1,33 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart'; // if you are using localization
 
-class CustomNavigationBar extends StatelessWidget {
+class CustomNavigationBar extends StatefulWidget {
   final int selectedIndex;
-  final Function(int) onItemTapped;
 
-  const CustomNavigationBar({
-    Key? key,
-    required this.selectedIndex,
-    required this.onItemTapped,
-  }) : super(key: key);
+  const CustomNavigationBar({Key? key, required this.selectedIndex}) : super(key: key);
+
+  @override
+  _CustomNavigationBarState createState() => _CustomNavigationBarState();
+}
+
+class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  void _navigateTo(int index) {
+    if (index != widget.selectedIndex) {
+      String routeName = _getRouteForIndex(index);
+      Navigator.pushReplacementNamed(context, routeName);
+    }
+  }
+
+  String _getRouteForIndex(int index) {
+    switch (index) {
+      case 0: return '/';
+      case 1: return '/events_calendar_page';
+      case 2: return '/live_stream_page';
+      case 3: return '/salve_newsletter_page';
+      case 4: return '/guided_tour_home';
+      case 5: return '/online_shop_page';
+      default: return '/';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
 
-    return Stack(
-      children: [
-        BottomNavigationBar(
-          currentIndex: selectedIndex,
-          onTap: onItemTapped,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Color.fromRGBO(176, 148, 60, 1),
+          unselectedItemColor: Colors.black,
+          selectedLabelStyle: TextStyle(fontSize: 10),
+          unselectedLabelStyle: TextStyle(fontSize: 10),
+          backgroundColor: Colors.white, // Ensuring the background is white
+        ),
+      ),
+      child: SafeArea(
+        bottom: true,
+        child: BottomNavigationBar(
+          currentIndex: widget.selectedIndex,
+          onTap: _navigateTo,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline),
-              label: appLoc.aboutTheKloister,
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.event),
@@ -51,26 +77,7 @@ class CustomNavigationBar extends StatelessWidget {
             ),
           ],
         ),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 10,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withAlpha(128), // Equivalent to Colors.white.withOpacity(0.5)
-                  Colors.white.withAlpha(0),   // Equivalent to Colors.white.withOpacity(0.0)
-                ],
-                stops: [0.0, 1.0],
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

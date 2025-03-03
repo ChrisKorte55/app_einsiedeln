@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '/widgets/custom_navigation_bar.dart'; // Ensure this path is correct
 import 'tour_location_detail_views.dart';
 
 class GuidedTourHome extends StatelessWidget {
@@ -14,7 +15,7 @@ class GuidedTourHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "appLoc.selectTourType",
+          "appLoc.selectTourType", // Correct this to actually use the localized string
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
@@ -23,14 +24,12 @@ class GuidedTourHome extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               'assets/images/kloster_mountains_vert.JPG',
               fit: BoxFit.cover,
             ),
           ),
-          // Content with buttons
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -62,6 +61,9 @@ class GuidedTourHome extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: 4, // Set this to the correct index for the Guided Tour Home page
       ),
     );
   }

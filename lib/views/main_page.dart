@@ -15,8 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController _pageController = PageController();
+  Timer? _timer;
   int _currentPage = 0;
-  int _selectedIndex = 0; // Index for navigation bar
 
   final List<String> _imagePaths = [
     'assets/images/kloster_front_snow_vert.jpg',
@@ -30,38 +30,27 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 6), (Timer timer) {
       if (_currentPage < _imagePaths.length - 1) {
         _currentPage++;
       } else {
         _currentPage = 0;
       }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOut,
-      );
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
     });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();  // Properly cancel the timer
     _pageController.dispose();
     super.dispose();
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    switch (index) {
-      case 0: Navigator.pushNamed(context, '/about_us_page'); break;
-      case 1: Navigator.pushNamed(context, '/events_calendar_page'); break;
-      case 2: Navigator.pushNamed(context, '/live_stream_page'); break;
-      case 3: Navigator.pushNamed(context, '/salve_newsletter_page'); break;
-      case 4: Navigator.pushNamed(context, '/guided_tour_home'); break;
-      case 5: Navigator.pushNamed(context, '/online_shop_page'); break;
-    }
   }
 
   @override
@@ -86,8 +75,8 @@ class _MainPageState extends State<MainPage> {
                         return LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [Colors.white, Colors.transparent],
-                          stops: [0.0, 0.3],
+                          colors: [Colors.white.withValues(alpha: 0.8), Colors.transparent],
+                          stops: [0.0, 0.5],
                         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstOut,
@@ -148,8 +137,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+        selectedIndex: 0,  // Assuming this is the index for the MainPage
       ),
     );
   }

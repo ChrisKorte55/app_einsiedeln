@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import '/widgets/custom_navigation_bar.dart'; // Ensure this path is correct
 
 class SalvePage extends StatelessWidget {
   const SalvePage({Key? key}) : super(key: key);
@@ -11,19 +12,19 @@ class SalvePage extends StatelessWidget {
         title: const Text("Salve Newsletter"),
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView( // Allows scrolling when content is larger than the screen
-        child: Column( // Organizes children in a vertical column
+      body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(16.0), // Adds padding around the text
+              padding: const EdgeInsets.all(16.0),
               child: Text(
                 "Vier Mal im Jahr lässt Sie unsere Zeitschrift salve einen Blick auf das Leben hinter den Einsiedler und Fahrer Klostermauern samt den mit ihnen verbundenen Institutionen werfen.",
                 style: TextStyle(
-                  fontSize: 16, // Sets font size
-                  color: Colors.black87, // Sets text color
+                  fontSize: 16,
+                  color: Colors.black87,
                 ),
-                textAlign: TextAlign.center, // Centers the text
+                textAlign: TextAlign.center,
               ),
             ),
             HtmlWidget(
@@ -33,6 +34,9 @@ class SalvePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: 3, // Assuming this is the index for the SalvePage
       ),
     );
   }
