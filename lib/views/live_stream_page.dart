@@ -13,13 +13,6 @@ class LiveStreamPage extends StatelessWidget {
         double screenHeight = MediaQuery.of(context).size.height;
 
         return Scaffold(
-          appBar: isLandscape
-              ? null // Remove the AppBar in landscape mode
-              : AppBar(
-                  title: const Text("Live Stream Gottesdienst"),
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                ),
           body: Stack(
             children: [
               Container(
@@ -56,7 +49,6 @@ class LiveStreamPage extends StatelessWidget {
                 ),
             ],
           ),
-          // Remove the bottomNavigationBar entirely since it's managed by AppShell
         );
       },
     );

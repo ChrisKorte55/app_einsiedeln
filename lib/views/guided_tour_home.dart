@@ -12,15 +12,6 @@ class GuidedTourHome extends StatelessWidget {
     final appLoc = AppLocalizations.of(context)!; // Safely unwrap as it's confirmed to be non-null in this context
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "appLoc.selectTourType", // Correctly use the localized string
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 2,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -61,7 +52,6 @@ class GuidedTourHome extends StatelessWidget {
           ),
         ],
       ),
-      // Remove the bottomNavigationBar since it is managed by AppShell
     );
   }
 

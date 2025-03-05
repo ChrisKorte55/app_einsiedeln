@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
-import '/services/locale_provider.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -55,7 +53,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
-    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -117,25 +114,8 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            right: 10,
-            child: GestureDetector(
-              onTap: () {
-                Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
-                    ? Locale('en')
-                    : Locale('de');
-                languageProvider.setLocale(newLocale);
-              },
-              child: Text(
-                'DE | EN',
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              ),
-            ),
-          ),
         ],
       ),
-      // Removed the bottomNavigationBar here as it is managed by AppShell
     );
   }
 }

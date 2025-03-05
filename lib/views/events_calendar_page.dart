@@ -10,11 +10,6 @@ class EventsPage extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Events"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
       body: Column(
         children: [
           const Padding(
@@ -43,7 +38,6 @@ class EventsPage extends StatelessWidget {
           ),
         ],
       ),
-      // Removed the bottomNavigationBar since it's managed by AppShell
     );
   }
 }

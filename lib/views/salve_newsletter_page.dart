@@ -7,10 +7,6 @@ class SalvePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Salve Newsletter"),
-        backgroundColor: Colors.white,
-      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +30,6 @@ class SalvePage extends StatelessWidget {
           ],
         ),
       ),
-      // Removed the bottomNavigationBar since it's managed by AppShell
     );
   }
 }
