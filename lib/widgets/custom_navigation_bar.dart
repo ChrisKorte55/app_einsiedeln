@@ -3,33 +3,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart'; // if you are usin
 
 class CustomNavigationBar extends StatefulWidget {
   final int selectedIndex;
+  final Function(int) onItemTapped;  // Add this line for callback
 
-  const CustomNavigationBar({Key? key, required this.selectedIndex}) : super(key: key);
+  const CustomNavigationBar({Key? key, required this.selectedIndex, required this.onItemTapped}) : super(key: key);  // Modify the constructor to accept the callback
 
   @override
   _CustomNavigationBarState createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  void _navigateTo(int index) {
-    if (index != widget.selectedIndex) {
-      String routeName = _getRouteForIndex(index);
-      Navigator.pushReplacementNamed(context, routeName);
-    }
-  }
-
-  String _getRouteForIndex(int index) {
-    switch (index) {
-      case 0: return '/';
-      case 1: return '/events_calendar_page';
-      case 2: return '/live_stream_page';
-      case 3: return '/salve_newsletter_page';
-      case 4: return '/guided_tour_home';
-      case 5: return '/online_shop_page';
-      default: return '/';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
@@ -48,7 +30,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         bottom: true,
         child: BottomNavigationBar(
           currentIndex: widget.selectedIndex,
-          onTap: _navigateTo,
+          onTap: widget.onItemTapped,  // Use the passed callback here
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(

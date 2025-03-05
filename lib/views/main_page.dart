@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '/services/locale_provider.dart';
-import '/widgets/custom_navigation_bar.dart'; // Ensure you have the correct import path
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -75,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                         return LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [Colors.white.withValues(alpha: 0.8), Colors.transparent],
+                          colors: [Colors.white.withOpacity(0.8), Colors.transparent],
                           stops: [0.0, 0.5],
                         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
@@ -100,9 +99,9 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            appLoc.welcomeMessage,
+                            appLoc.welcomeTitle,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 35, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
                           Text(
@@ -136,9 +135,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 0,  // Assuming this is the index for the MainPage
-      ),
+      // Removed the bottomNavigationBar here as it is managed by AppShell
     );
   }
 }

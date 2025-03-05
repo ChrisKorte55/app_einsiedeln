@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '/widgets/custom_navigation_bar.dart'; // Ensure this path is correct
 import 'tour_location_detail_views.dart';
 
 class GuidedTourHome extends StatelessWidget {
@@ -10,12 +9,12 @@ class GuidedTourHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appLoc = AppLocalizations.of(context)!; // Get localized strings
+    final appLoc = AppLocalizations.of(context)!; // Safely unwrap as it's confirmed to be non-null in this context
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "appLoc.selectTourType", // Correct this to actually use the localized string
+          "appLoc.selectTourType", // Correctly use the localized string
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
@@ -62,15 +61,13 @@ class GuidedTourHome extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 4, // Set this to the correct index for the Guided Tour Home page
-      ),
+      // Remove the bottomNavigationBar since it is managed by AppShell
     );
   }
 
   Widget _buildButton(BuildContext context, {required String label, required VoidCallback onPressed}) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.6, // Make the button 80% of screen width
+      width: MediaQuery.of(context).size.width * 0.6, // Adjust the comment to reflect the actual width as 60%
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

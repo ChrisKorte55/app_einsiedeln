@@ -3,15 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '/views/main_page.dart';
-import '/views/events_calendar_page.dart';
-// import '/views/about_us_page.dart';
-import '/views/live_stream_page.dart';
-import '/views/online_shop_page.dart';
-import '/views/guided_tour_home.dart';
-import '/views/salve_newsletter_page.dart';
-import '/services/locale_provider.dart'; 
-import '/services/tour_type_provider.dart'; 
+import '/views/app_shell.dart'; // Use AppShell for navigation management
+import '/services/locale_provider.dart';
+import '/services/tour_type_provider.dart';
 
 void main() {
   runApp(
@@ -61,18 +55,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
 
-      // Define the initial route
-      initialRoute: '/',
-
-      // Define the routes table
-      routes: {
-        '/': (context) => MainPage(),
-        '/events_calendar_page': (context) => const EventsPage(),
-        '/live_stream_page': (context) => const LiveStreamPage(),
-        '/online_shop_page': (context) => const OnlineShopPage(),
-        '/guided_tour_home': (context) => GuidedTourHome(),
-        '/salve_newsletter_page': (context) => const SalvePage(),
-      },
+      // Use AppShell as the home widget instead of defining routes here
+      home: AppShell(),
     );
   }
 }

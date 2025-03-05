@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import '/widgets/custom_navigation_bar.dart'; // Ensure this path is correct
 
 class LiveStreamPage extends StatelessWidget {
   const LiveStreamPage({Key? key}) : super(key: key);
@@ -57,9 +56,7 @@ class LiveStreamPage extends StatelessWidget {
                 ),
             ],
           ),
-          bottomNavigationBar: isLandscape ? null : CustomNavigationBar(
-            selectedIndex: 2, // Assuming this is the index for the LiveStreamPage
-          ),
+          // Remove the bottomNavigationBar entirely since it's managed by AppShell
         );
       },
     );

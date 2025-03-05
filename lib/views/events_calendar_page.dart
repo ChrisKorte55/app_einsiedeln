@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import '/widgets/custom_navigation_bar.dart'; // Make sure this path is correct
 
 class EventsPage extends StatelessWidget {
   const EventsPage({Key? key}) : super(key: key);
@@ -44,9 +43,7 @@ class EventsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 1, // Assuming this is the index for the Events page
-      ),
+      // Removed the bottomNavigationBar since it's managed by AppShell
     );
   }
 }

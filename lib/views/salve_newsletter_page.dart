@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import '/widgets/custom_navigation_bar.dart'; // Ensure this path is correct
 
 class SalvePage extends StatelessWidget {
   const SalvePage({Key? key}) : super(key: key);
@@ -35,9 +34,7 @@ class SalvePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 3, // Assuming this is the index for the SalvePage
-      ),
+      // Removed the bottomNavigationBar since it's managed by AppShell
     );
   }
 }
