@@ -5,6 +5,7 @@ import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:app_einsiedeln/services/csv_loader.dart';
 import 'package:app_einsiedeln/models/tour_location_csv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TourLocationDetailView extends StatelessWidget {
   @override
@@ -76,7 +77,7 @@ class InteractiveBlueprint extends StatelessWidget {
                           border: Border.all(color: Colors.red, width: 2),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0x4D000000), // 30% opacity
+                              color: Color(0x4D000000),
                               spreadRadius: 2,
                               blurRadius: 2,
                               offset: Offset(0, 2),
@@ -109,7 +110,7 @@ class InteractiveBlueprint extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0x4D000000), // 30% opacity
+                                    color: Color(0x4D000000),
                                     spreadRadius: 1,
                                     blurRadius: 2,
                                     offset: Offset(0, 2),
@@ -176,12 +177,15 @@ class InteractiveBlueprint extends StatelessWidget {
         bool isGerman = appLoc.localeName == 'de';
         bool isHistorical = Provider.of<TourTypeProvider>(context, listen: false).tourType == 'historical';
 
+        String donationUrl =
+            "https://donate.raisenow.io/khgfh?lng=en&supporter.message.value=${Uri.encodeComponent(location.name)}";
+
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
             padding: const EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context). size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.8,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -236,6 +240,21 @@ class InteractiveBlueprint extends StatelessWidget {
                         );
                       }).toList(),
                     ),
+                  const SizedBox(height: 20),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      launchUrl(Uri.parse(donationUrl));
+                    },
+                    icon: const Icon(Icons.favorite, color: Colors.white),
+                    label: const Text("Donate", style: TextStyle(fontSize: 18)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
