@@ -12,42 +12,31 @@ class LiveStreamPage extends StatelessWidget {
         double screenWidth = MediaQuery.of(context).size.width;
         double screenHeight = MediaQuery.of(context).size.height;
 
+        // Determine the size of the video based on orientation
+        double videoWidth = screenWidth;
+        double videoHeight = isLandscape ? screenHeight : screenHeight * 0.56; // typical aspect ratio for videos
+
         return Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                color: Colors.white,
-                child: Center(
-                  child: HtmlWidget(
-                    '''
-                      <iframe 
-                        src="https://cust-kloster-einsiedeln-front-9b2d91cc913e.herokuapp.com/embed" 
-                        width="$screenWidth"
-                        height="$screenHeight"
-                        frameborder="0" 
-                        allow="autoplay; encrypted-media; fullscreen"
-                        allowfullscreen
-                        style="border-radius: 10px;"
-                      ></iframe>
-                    ''',
-                  ),
-                ),
+          body: Container(
+            color: Colors.black,
+            alignment: isLandscape ? Alignment.center : Alignment.topCenter,
+            child: SizedBox(
+              width: videoWidth,
+              height: videoHeight,
+              child: HtmlWidget(
+                '''
+                  <iframe 
+                    src="https://cust-kloster-einsiedeln-front-9b2d91cc913e.herokuapp.com/embed" 
+                    width="100%"
+                    height="100%"
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
+                    style="border-radius: 0px;"
+                  ></iframe>
+                ''',
               ),
-              // Back button overlay in landscape mode
-              if (isLandscape)
-                Positioned(
-                  top: 16, // Keeps it near the top
-                  left: 16, // Keeps it near the left
-                  child: SafeArea(
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.black, size: 30),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                ),
-            ],
+            ),
           ),
         );
       },
