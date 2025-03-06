@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
                         return LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [Colors.white.withOpacity(0.8), Colors.transparent],
+                          colors: [Colors.white.withValues(alpha: 0.8), Colors.transparent],
                           stops: [0.0, 0.5],
                         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
