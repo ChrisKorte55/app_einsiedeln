@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_front_snow_vert.jpg',
     'assets/images/kloster_statue_vert.jpg',
     'assets/images/kloster_grass_vert.jpg',
-    'assets/images/kloster_sunset.jpg', //is this change now in main?
+    'assets/images/kloster_sunset.jpg',
     'assets/images/kloster_chandelier.jpg',
     'assets/images/kloster_facade.jpg'
   ];
@@ -56,65 +56,106 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                flex: 4,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: _imagePaths.length,
-                  itemBuilder: (context, index) {
-                    return ShaderMask(
-                      shaderCallback: (rect) {
-                        return LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [Colors.white.withValues(alpha: 0.8), Colors.transparent],
-                          stops: [0.0, 0.5],
-                        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                      },
-                      blendMode: BlendMode.dstOut,
-                      child: Image.asset(
-                        _imagePaths[index],
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    );
-                  },
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: _imagePaths.length,
+                itemBuilder: (context, index) {
+                  return Image.asset(
+                    _imagePaths[index],
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                  );
+                },
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            appLoc.welcomeTitle,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 35, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            appLoc.welcomeMonks,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
+            ),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    appLoc.welcomeTitle,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 35, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
                   ),
-                ),
+                  SizedBox(height: 20),
+                  Text(
+                    appLoc.welcomeMonks,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  ),
+                  SizedBox(height: 20),
+                  TourButton(label: appLoc.spiritualTour, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
+                  SizedBox(height: 20),
+                  TourButton(label: appLoc.historicalTour, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                ],
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TourButton extends StatelessWidget {
+  final String label;
+  final String imagePath;
+
+  const TourButton({Key? key, required this.label, required this.imagePath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.6,
+      height: 150,
+      child: ElevatedButton(
+        onPressed: () {
+          // Implement navigation or action
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.black45,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-        ],
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.black.withValues(alpha: 0.1),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
