@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_front_snow_vert.jpg',
     'assets/images/kloster_statue_vert.jpg',
     'assets/images/kloster_grass_vert.jpg',
-    'assets/images/kloster_sunset.jpg',
+    'assets/images/kloster_sunset.jpg', //is this change now in main?
     'assets/images/kloster_chandelier.jpg',
     'assets/images/kloster_facade.jpg'
   ];
