@@ -92,8 +92,8 @@ class InteractiveBlueprint extends StatelessWidget {
                     ),
                   ),
                   ...locations.map((location) {
-                    double xPosition = (location.x / originalImageWidth) * displayWidth;
-                    double yPosition = (location.y / originalImageHeight) * displayHeight;
+                    double xPosition = (location.x / originalImageWidth) * displayWidth - 15;  // Centering adjustment
+                    double yPosition = (location.y / originalImageHeight) * displayHeight - 15;  // Centering adjustment
 
                     return Positioned(
                       left: xPosition,
@@ -183,7 +183,7 @@ class InteractiveBlueprint extends StatelessWidget {
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.8,
             child: SingleChildScrollView(
