@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'alltag_im_kloster.dart'; // Ensure this import is correct
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -149,10 +150,19 @@ class _MainPageState extends State<MainPage> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     children: <Widget>[
-                      AboutUsButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
-                      AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
-                      AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg'),
-                      AboutUsButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                      AboutUsButton(
+                        label: appLoc.alltagImKloster, 
+                        imagePath: 'assets/images/05_Herz-Jesu-009.jpg',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AllTagImKloster()),
+                          );
+                        },
+                      ),
+                      AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () {}),
+                      AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg', onPressed: () {}),
+                      AboutUsButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () {}),
                     ],
                   ),
                 ],
@@ -168,38 +178,42 @@ class _MainPageState extends State<MainPage> {
 class AboutUsButton extends StatelessWidget {
   final String label;
   final String imagePath;
+  final VoidCallback onPressed;
 
-  const AboutUsButton({Key? key, required this.label, required this.imagePath}) : super(key: key);
+  const AboutUsButton({Key? key, required this.label, required this.imagePath, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          imagePath,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 10.0,
-                  color: Color.fromARGB(150, 0, 0, 0),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
           ),
-        ),
-      ],
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset: Offset(0.0, 0.0),
+                    blurRadius: 10.0,
+                    color: Color.fromARGB(150, 0, 0, 0),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
