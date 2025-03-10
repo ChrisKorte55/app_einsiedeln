@@ -59,19 +59,72 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: _imagePaths.length,
-                itemBuilder: (context, index) {
-                  return Image.asset(
-                    _imagePaths[index],
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width,
-                  );
-                },
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: _imagePaths.length,
+                    itemBuilder: (context, index) {
+                      return Image.asset(
+                        _imagePaths[index],
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                      );
+                    },
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      appLoc.welcome,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(0.0, 0.0),
+                            blurRadius: 10.0,
+                            color: Color.fromARGB(150, 0, 0, 0),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      appLoc.klosterName,
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(0.0, 0.0),
+                            blurRadius: 10.0,
+                            color: Color.fromARGB(150, 0, 0, 0),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/GuidedTourHome');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(176, 148, 60, 1),
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                        elevation: 4,
+                      ),
+                      child: Text('Tours'),
+                    ),
+                  ],
+                ),
+              ],
             ),
             Container(
               color: Colors.white,
@@ -80,15 +133,13 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    appLoc.welcomeTitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 35, color: Color.fromRGBO(176, 148, 60, 1), fontWeight: FontWeight.bold),
+                    appLoc.welcomeMessage,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   Text(
                     appLoc.welcomeMonks,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   SizedBox(height: 20),
                   GridView.count(
@@ -98,10 +149,10 @@ class _MainPageState extends State<MainPage> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     children: <Widget>[
-                      TourButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
-                      TourButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
-                      TourButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg'),
-                      TourButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                      AboutUsButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
+                      AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                      AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg'),
+                      AboutUsButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
                     ],
                   ),
                 ],
@@ -114,58 +165,41 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class TourButton extends StatelessWidget {
+class AboutUsButton extends StatelessWidget {
   final String label;
   final String imagePath;
 
-  const TourButton({Key? key, required this.label, required this.imagePath}) : super(key: key);
+  const AboutUsButton({Key? key, required this.label, required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.45,
-      height: 150,
-      child: ElevatedButton(
-        onPressed: () {
-          // Implement navigation or action
-        },
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          backgroundColor: Colors.transparent,
-          elevation: 0,  // Removed shadow
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),  // Less rounded corners
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 10.0,
+                  color: Color.fromARGB(150, 0, 0, 0),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),  // Less rounded corners for image
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                color: Colors.black.withValues(alpha: 0.2),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

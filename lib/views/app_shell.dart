@@ -60,6 +60,14 @@ class _AppShellState extends State<AppShell> {
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
               elevation: 2,
+              leading: IconButton(
+                icon: Image.asset('assets/images/kloster_full_logo.png'), // Replace 'assets/kloster_logo.png' with your actual logo asset path
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0; // Navigate to MainPage()
+                  });
+                },
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),

@@ -1,7 +1,8 @@
 {
   "@@locale": "de",
   
-  "welcomeTitle": "Herzlich willkommen im Kloster Einsiedeln!",
+  "welcome": "Herzlich willkommen im",
+  "klosterName" :  "Kloster Einsiedeln",
   "welcomeMessage": "Wir freuen uns über Ihr Interesse an unserer Klostergemeinschaft und dem unserer Sorge anvertrauten Wallfahrtsort. Das Kloster Einsiedeln ist eine traditionsreiche Benediktinerabtei, das Zuhause von rund vierzig Mönchen, der bedeutendste Wallfahrtsort der Schweiz und eine Stätte der Kultur, Bildung und Begegnung seit über tausend Jahren.",
   "welcomeMonks": "-Abt Urban Federer und die Mönche des Klosters Einsiedeln",
   "eventsCalendar": "Event Kalender",

@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
-  
-  "welcomeTitle": "Welcome to the Cloister Einsiedlen!",
+  "welcome": "Welcome to the",
+  "klosterName" : "Einsiedeln Monastery",
   "welcomeMessage": "We look forward to your visit and would already like to extend a warm welcome to you!",
   "welcomeMonks": "- Abbot Urban Federer and the monks of Einsiedeln Abbey",
   "eventsCalendar": "Event Calender",
