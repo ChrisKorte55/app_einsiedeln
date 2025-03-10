@@ -37,7 +37,7 @@ class _AppShellState extends State<AppShell> {
     if (index == 5) { // Online Shop index
       final Uri url = Uri.parse('https://shop.kloster-einsiedeln.ch/');
       if (await canLaunchUrl(url)) {
-        await launchUrl(url, mode: LaunchMode.externalApplication); // Opens in external browser
+        await launchUrl(url, mode: LaunchMode.externalApplication);
       }
     } else {
       setState(() {
@@ -49,24 +49,23 @@ class _AppShellState extends State<AppShell> {
   @override
   Widget build(BuildContext context) {
     bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
-    bool isLiveStreamPage = _selectedIndex == 2; // Check if LiveStreamPage is active
+    bool isLiveStreamPage = _selectedIndex == 2;
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
     return Scaffold(
       appBar: (isLiveStreamPage && isLandscape)
           ? null
           : AppBar(
-              title: Text(_titles[_selectedIndex]),
+              title: Text(_titles[_selectedIndex], style: TextStyle(color: Colors.black)),
               backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
               elevation: 2,
-              leading: IconButton(
-                icon: Image.asset('assets/images/kloster_full_logo.png'), // Replace 'assets/kloster_logo.png' with your actual logo asset path
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0; // Navigate to MainPage()
-                  });
-                },
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/images/klosterlogohorizontal.png',
+                  width: 80, // Increased size
+                  height: 80, // Increased size
+                ),
               ),
               actions: [
                 Padding(
