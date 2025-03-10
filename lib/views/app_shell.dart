@@ -26,7 +26,7 @@ class _AppShellState extends State<AppShell> {
   ];
 
   final List<String> _titles = [
-    "Home",
+    " ",
     "Events",
     "Live Stream",
     "Salve Newsletter",

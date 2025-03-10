@@ -4,8 +4,6 @@
   "welcomeTitle": "Welcome to the Cloister Einsiedlen!",
   "welcomeMessage": "We look forward to your visit and would already like to extend a warm welcome to you!",
   "welcomeMonks": "- Abbot Urban Federer and the monks of Einsiedeln Abbey",
-  "drawerHeader": "Menu",
-  "aboutTheKloister": "About the Cloister",
   "eventsCalendar": "Event Calender",
   "liveStream": "Services",
   "newsLetter": "Salve Newsletter",
@@ -14,7 +12,10 @@
   "kunstHistorischEinleitung" : "Am Anfang der...",
   "tourHomeText" : "Offered Tours:",
   "spiritualTour" : "Religious Tour",
-  "historicalTour" : "History Tour"
+  "historicalTour" : "History Tour",
+  "alltagImKloster" : "Daily Life in the Monastery",
+  "historyPage" : "Monastery History",
+  "gemeinschaft" : "Our Community"
 }
 
 

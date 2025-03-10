@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
-    _timer?.cancel();  // Properly cancel the timer
+    _timer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
             ),
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 50),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -91,9 +91,19 @@ class _MainPageState extends State<MainPage> {
                     style: TextStyle(fontSize: 14, color: Colors.black),
                   ),
                   SizedBox(height: 20),
-                  TourButton(label: appLoc.spiritualTour, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
-                  SizedBox(height: 20),
-                  TourButton(label: appLoc.historicalTour, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    childAspectRatio: (MediaQuery.of(context).size.width / 2) / 150,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    children: <Widget>[
+                      TourButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/05_Herz-Jesu-009.jpg'),
+                      TourButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                      TourButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg'),
+                      TourButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg'),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -112,8 +122,8 @@ class TourButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.6,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.45,
       height: 150,
       child: ElevatedButton(
         onPressed: () {
@@ -122,17 +132,16 @@ class TourButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 20),
           backgroundColor: Colors.transparent,
-          shadowColor: Colors.black45,
-          elevation: 5,
+          elevation: 0,  // Removed shadow
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),  // Less rounded corners
           ),
         ),
         child: Stack(
           fit: StackFit.expand,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(5.0),  // Less rounded corners for image
               child: Image.asset(
                 imagePath,
                 fit: BoxFit.cover,
@@ -140,8 +149,8 @@ class TourButton extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.black.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(5.0),
+                color: Colors.black.withValues(alpha: 0.2),
               ),
               alignment: Alignment.center,
               child: Text(
