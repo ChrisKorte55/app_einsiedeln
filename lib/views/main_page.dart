@@ -123,8 +123,10 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(appLoc.welcomeMessage, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                  Text(appLoc.introTextwelcome, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                   SizedBox(height: 10),
+                  Text(appLoc.welcomeMessage, style: TextStyle(fontSize: 18, color: Colors.grey),),
+                  SizedBox(height: 20),
                   Text(appLoc.welcomeMonks, style: TextStyle(fontSize: 18, color: Colors.grey),),
                   SizedBox(height: 20),
                   GridView.count(
@@ -155,27 +157,58 @@ class AboutUsButton extends StatelessWidget {
   final String imagePath;
   final VoidCallback onPressed;
 
-  const AboutUsButton({Key? key, required this.label, required this.imagePath, required this.onPressed}) : super(key: key);
+  const AboutUsButton({
+    Key? key,
+    required this.label,
+    required this.imagePath,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(imagePath, fit: BoxFit.cover,),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white,
-                shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Color.fromARGB(150, 0, 0, 0),),],),
-              textAlign: TextAlign.center,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // Rounded corners
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black.withValues(alpha: 0.5), Colors.transparent],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(0.0, 0.0),
+                      blurRadius: 10.0,
+                      color: Colors.black.withValues(alpha: 0.7),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+
