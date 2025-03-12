@@ -119,11 +119,11 @@ class InteractiveBlueprint extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: () => _showMiniMap(context),
             backgroundColor: redColor,
-            child: Icon(Icons.map, color: Colors.white, size: 30),
             shape: CircleBorder(),
             elevation: 8,
             splashColor: Colors.white,
             highlightElevation: 12,
+            child: Icon(Icons.map, color: Colors.white, size: 30),
           ),
         ),
       ],
@@ -131,26 +131,109 @@ class InteractiveBlueprint extends StatelessWidget {
   }
 
   void _showMiniMap(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          content: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset('assets/images/kloster_uebersicht.jpg', fit: BoxFit.cover),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Close',
-                style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: EdgeInsets.all(20),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Define original image size
+            double originalWidth = 1000;
+            double originalHeight = 707;
+
+            // Determine the scaled width and height while maintaining aspect ratio
+            double maxDialogWidth = constraints.maxWidth * 0.9;
+            double maxDialogHeight = constraints.maxHeight * 0.8;
+            double aspectRatio = originalWidth / originalHeight;
+            double scaledWidth = maxDialogWidth;
+            double scaledHeight = maxDialogWidth / aspectRatio;
+
+            if (scaledHeight > maxDialogHeight) {
+              scaledHeight = maxDialogHeight;
+              scaledWidth = scaledHeight * aspectRatio;
+            }
+
+            // Calculate scaled text position
+            double scaleFactorX = scaledWidth / originalWidth;
+            double scaleFactorY = scaledHeight / originalHeight;
+            double textX = 100 * scaleFactorX;
+            double textY = 352 * scaleFactorY;
+
+            return Stack(
+              alignment: Alignment.topRight,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          spreadRadius: 2,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          width: scaledWidth,
+                          height: scaledHeight,
+                          child: Image.asset(
+                            'assets/images/kloster_uebersicht.jpg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        Positioned(
+                          left: textX,
+                          top: textY,
+                          child: Text(
+                            "Visitor\nEntrance",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18, 
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              letterSpacing: 1.2,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.white, // White outline
+                                  blurRadius: 3,
+                                  offset: Offset(-1, -1),
+                                ),
+                                Shadow(
+                                  color: Colors.white,
+                                  blurRadius: 3,
+                                  offset: Offset(1, 1),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 12,
+                  top: 12,
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Icon(Icons.close, color: Colors.black, size: 24),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      );
+    },
+  );
+}
+
 }
