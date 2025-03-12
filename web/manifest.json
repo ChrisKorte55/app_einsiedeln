@@ -1,11 +1,12 @@
 {
     "name": "Kloster Einsiedeln",
     "short_name": "Einsiedeln",
-    "start_url": ".",
+    "start_url": "index.html",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#b0943c",
-    "theme_color": "#b0943c",
-    "description": "Kloster Einsiedlen App",
+    "background_color": "#b0953c",
+    "theme_color": "#b0953c",
+    "description": "Kloster Einsiedeln App",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
