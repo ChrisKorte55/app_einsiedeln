@@ -13,7 +13,7 @@ class AllTagImKloster extends StatelessWidget {
           ' ',
           style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 2,
       ),

@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
             Stack(
               alignment: Alignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.75,
                   child: PageView.builder(
                     controller: _pageController,
@@ -79,6 +79,16 @@ class _MainPageState extends State<MainPage> {
                         width: MediaQuery.of(context).size.width,
                       );
                     },
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(
+                    'assets/images/white_gradient.png',
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ),
                 Column(
@@ -101,7 +111,7 @@ class _MainPageState extends State<MainPage> {
                         shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Color.fromARGB(150, 0, 0, 0),),],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => GuidedTourHome()),);},
                       style: ElevatedButton.styleFrom(
@@ -117,17 +127,31 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
+            SizedBox(height: 40),
             Container(
               color: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(appLoc.introTextwelcome, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                  Text(
+                    appLoc.introTextwelcome,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
                   SizedBox(height: 10),
-                  Text(appLoc.welcomeMessage, style: TextStyle(fontSize: 18, color: Colors.grey),),
+                  Text(
+                    appLoc.welcomeMessage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22, color: Colors.black),
+                  ),
                   SizedBox(height: 20),
-                  Text(appLoc.welcomeMonks, style: TextStyle(fontSize: 18, color: Colors.grey),),
+                  Text(
+                    appLoc.welcomeMonks,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
                   SizedBox(height: 20),
                   GridView.count(
                     shrinkWrap: true,
@@ -151,6 +175,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
 
 class AboutUsButton extends StatelessWidget {
   final String label;

@@ -1,6 +1,5 @@
 {
   "@@locale": "de",
-  
   "welcome": "Herzlich willkommen im",
   "klosterName" :  "Kloster Einsiedeln",
   "welcomeMessage": "Wir freuen uns auf Ihren Besuch und heissen Sie schon jetzt herzlich willkommen!",
@@ -20,5 +19,4 @@
   "historyPage" : "Kloster Geschichte",
   "gemeinschaft" : "Gemeinschaft",
   "benediktiner" : "Benediktiner"
-
 }
