@@ -20,11 +20,7 @@ class GuidedTourHome extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 40),
               child: Text(
                 'Explore our guided tours: Spiritual & Historic',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: accentColor,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: accentColor,),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -34,10 +30,7 @@ class GuidedTourHome extends StatelessWidget {
               imagePath: 'assets/images/05_Herz-Jesu-009.jpg',
               onPressed: () {
                 Provider.of<TourTypeProvider>(context, listen: false).setTourType('spiritual');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TourLocationDetailView()),
-                );
+                Navigator.push(context,MaterialPageRoute(builder: (context) => TourLocationDetailView()),);
               },
             ),
             const SizedBox(height: 20),
@@ -47,10 +40,7 @@ class GuidedTourHome extends StatelessWidget {
               imagePath: 'assets/images/03_Decken_und_Boden-008.jpg',
               onPressed: () {
                 Provider.of<TourTypeProvider>(context, listen: false).setTourType('historical');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TourLocationDetailView()),
-                );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TourLocationDetailView()),);
               },
             ),
           ],
@@ -70,35 +60,19 @@ class GuidedTourHome extends StatelessWidget {
           backgroundColor: Colors.transparent, // Button background is transparent to allow image visibility
           shadowColor: Colors.black45,
           elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),
         ),
         child: Stack(
           fit: StackFit.expand,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(imagePath, fit: BoxFit.cover,),
             ),
             Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.black.withOpacity(0.3), // Semi-transparent overlay for better text visibility
-              ),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.black.withValues(alpha: 0.3),),
               alignment: Alignment.center,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              child: Text(label, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,), textAlign: TextAlign.center,),
             ),
           ],
         ),

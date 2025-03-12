@@ -61,11 +61,7 @@ class _AppShellState extends State<AppShell> {
               elevation: 2,
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  'assets/images/klosterlogohorizontal.png',
-                  width: 80, // Increased size
-                  height: 80, // Increased size
-                ),
+                child: Image.asset('assets/images/klosterlogohorizontal.png', width: 80, height: 80,),
               ),
               actions: [
                 Padding(
@@ -77,24 +73,15 @@ class _AppShellState extends State<AppShell> {
                           : Locale('de');
                       languageProvider.setLocale(newLocale);
                     },
-                    child: Text(
-                      'DE | EN',
-                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                    child: Text('DE | EN', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
                   ),
                 ),
               ],
             ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _selectedIndex, children: _pages,),
       bottomNavigationBar: (isLiveStreamPage && isLandscape)
           ? null
-          : CustomNavigationBar(
-              selectedIndex: _selectedIndex,
-              onItemTapped: _onItemTapped,
-            ),
+          : CustomNavigationBar(selectedIndex: _selectedIndex, onItemTapped: _onItemTapped,),
     );
   }
 }

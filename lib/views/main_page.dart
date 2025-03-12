@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'package:app_einsiedeln/views/benediktiner.dart';
+import 'package:app_einsiedeln/views/gemeinschaft.dart';
+import 'package:app_einsiedeln/views/guided_tour_home.dart';
+import 'package:app_einsiedeln/views/history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'alltag_im_kloster.dart'; // Ensure this import is correct
+import 'alltag_im_kloster.dart'; 
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -85,13 +89,7 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0.0, 0.0),
-                            blurRadius: 10.0,
-                            color: Color.fromARGB(150, 0, 0, 0),
-                          ),
-                        ],
+                        shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Color.fromARGB(150, 0, 0, 0),),],
                       ),
                     ),
                     Text(
@@ -100,20 +98,12 @@ class _MainPageState extends State<MainPage> {
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0.0, 0.0),
-                            blurRadius: 10.0,
-                            color: Color.fromARGB(150, 0, 0, 0),
-                          ),
-                        ],
+                        shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Color.fromARGB(150, 0, 0, 0),),],
                       ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/GuidedTourHome');
-                      },
+                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => GuidedTourHome()),);},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(176, 148, 60, 1),
                         foregroundColor: Colors.white,
@@ -133,15 +123,9 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    appLoc.welcomeMessage,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  Text(appLoc.welcomeMessage, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                   SizedBox(height: 10),
-                  Text(
-                    appLoc.welcomeMonks,
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
-                  ),
+                  Text(appLoc.welcomeMonks, style: TextStyle(fontSize: 18, color: Colors.grey),),
                   SizedBox(height: 20),
                   GridView.count(
                     shrinkWrap: true,
@@ -150,19 +134,10 @@ class _MainPageState extends State<MainPage> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     children: <Widget>[
-                      AboutUsButton(
-                        label: appLoc.alltagImKloster, 
-                        imagePath: 'assets/images/05_Herz-Jesu-009.jpg',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AllTagImKloster()),
-                          );
-                        },
-                      ),
-                      AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () {}),
-                      AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees.jpg', onPressed: () {}),
-                      AboutUsButton(label: 'New Button 2', imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () {}),
+                      AboutUsButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/kloster_grass_horz.jpg', onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => AllTagImKloster()),);},),
+                      AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => KlosterHistoryPage()),);},),
+                      AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees_horz.jpg', onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Gemeinschaft()),);},),
+                      AboutUsButton(label: appLoc.benediktiner, imagePath: 'assets/images/kloster_hallway.jpg', onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Benediktiner()),);},),
                     ],
                   ),
                 ],
@@ -189,26 +164,13 @@ class AboutUsButton extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          ),
+          Image.asset(imagePath, fit: BoxFit.cover,),
           Container(
             alignment: Alignment.center,
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    offset: Offset(0.0, 0.0),
-                    blurRadius: 10.0,
-                    color: Color.fromARGB(150, 0, 0, 0),
-                  ),
-                ],
-              ),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white,
+                shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Color.fromARGB(150, 0, 0, 0),),],),
               textAlign: TextAlign.center,
             ),
           ),
