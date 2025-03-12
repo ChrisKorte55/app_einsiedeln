@@ -58,35 +58,17 @@ class InteractiveBlueprint extends StatelessWidget {
                             Container(
                               width: 30,
                               height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x4D000000),
-                                    spreadRadius: 1,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
+                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle,
+                                boxShadow: [BoxShadow(color: Color(0x4D000000), spreadRadius: 1, blurRadius: 2, offset: Offset(0, 2),),],
                               ),
                               alignment: Alignment.center,
                               child: Text(
                                 location.id.toString(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
+                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10,),
                               ),
                             ),
                             SizedBox(height: 4),
-                            Text(
-                              location.name,
-                              style: TextStyle(color: Colors.black, fontSize: 12), 
-                              textAlign: TextAlign.center, maxLines: 2, 
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            Text(location.name, style: TextStyle(color: Colors.black, fontSize: 12), textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis,),
                           ],
                         ),
                       ),

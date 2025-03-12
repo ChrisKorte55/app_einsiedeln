@@ -19,62 +19,126 @@ void showLocationDetails(BuildContext context, TourLocation location) {
 
       return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        backgroundColor: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.8,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.black),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-                Text(location.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                const SizedBox(height: 10),
-                Image.asset('assets/images/${location.mainImageName}', fit: BoxFit.cover),
-                const SizedBox(height: 20),
-                Text(
-                  isHistorical
-                      ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
-                      : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
-                  style: const TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 20),
-                if (location.otherImageNames.isNotEmpty)
-                  CarouselSlider(
-                    options: CarouselOptions(height: 200, enableInfiniteScroll: false, enlargeCenterPage: true),
-                    items: location.otherImageNames.map((imageName) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                            ),
-                            child: Image.asset('assets/images/$imageName', fit: BoxFit.cover),
-                          );
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        location.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Color.fromRGBO(176, 148, 60, 1),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          'assets/images/${location.mainImageName}',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 200,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        isHistorical
+                            ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
+                            : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
+                        style: const TextStyle(fontSize: 16, height: 1.5),
+                        textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 20),
+                      if (location.otherImageNames.isNotEmpty)
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 180,
+                            enableInfiniteScroll: false,
+                            enlargeCenterPage: true,
+                          ),
+                          items: location.otherImageNames.map((imageName) {
+                            return GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      backgroundColor: Colors.transparent,
+                                      child: GestureDetector(
+                                        onTap: () => Navigator.of(context).pop(),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(15),
+                                            child: Image.asset(
+                                              'assets/images/$imageName',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.asset(
+                                  'assets/images/$imageName',
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      const SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          launchUrl(Uri.parse(donationUrl));
                         },
-                      );
-                    }).toList(),
+                        icon: const Icon(Icons.favorite, color: Colors.white),
+                        label: const Text("Donate", style: TextStyle(fontSize: 18, color: Colors.black)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(176, 148, 60, 1),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
                   ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    launchUrl(Uri.parse(donationUrl));
-                  },
-                  icon: const Icon(Icons.favorite, color: Colors.white),
-                  label: const Text("Donate", style: TextStyle(fontSize: 18)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
