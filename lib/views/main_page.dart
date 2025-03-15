@@ -109,11 +109,11 @@ class _MainPageState extends State<MainPage> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.white.withValues(alpha: 100),
-                          Colors.white.withValues(alpha: 150), // Softer white to prevent harsh contrast
-                          Colors.white.withValues(alpha: 200),
-                          Colors.white.withValues(alpha: 240),
-                          Colors.white.withValues(alpha: 300),
+                          Colors.white.withValues(alpha: 0.1),
+                          Colors.white.withValues(alpha: 0.2), // Softer white to prevent harsh contrast
+                          Colors.white.withValues(alpha: 0.3),
+                          Colors.white.withValues(alpha: 0.4),
+                          Colors.white.withValues(alpha: 0.5),
                           Colors.transparent // More gradual fade
                         ],
                         stops: [0.0, 0.1, 0.3, 0.5, 0.6, 1.0],

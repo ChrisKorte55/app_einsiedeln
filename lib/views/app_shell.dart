@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart'; // **Added for SystemUiOverlayStyle**
 import 'package:url_launcher/url_launcher.dart';
 import '/views/main_page.dart';
 import '/views/events_calendar_page.dart';
@@ -53,13 +54,15 @@ class _AppShellState extends State<AppShell> {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
     return Scaffold(
+      backgroundColor: Colors.white, // **Ensures entire background is white**
       appBar: (isLiveStreamPage && isLandscape)
           ? null
           : AppBar(
               toolbarHeight: 64, // **Skinnier app bar**
-              backgroundColor: Colors.white, // **Stays white on scroll**
+              backgroundColor: Colors.white, // **Forces the app bar to stay white**
               elevation: 0, // **No shadow**
               centerTitle: true,
+              systemOverlayStyle: SystemUiOverlayStyle.dark, // **Prevents tinting on scroll**
 
               title: Text(
                 _titles[_selectedIndex],
