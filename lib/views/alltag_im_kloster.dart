@@ -7,10 +7,16 @@ class AllTagImKloster extends StatefulWidget {
 }
 
 class _AllTagImKlosterState extends State<AllTagImKloster> {
-  final Color primaryColor = Color.fromRGBO(176, 148, 60, 1);
+  final Color primaryColor = Color(0xFFB0943C);
   final PageController _pageController = PageController();
-
   int _currentIndex = 0;
+
+  final String introText = 
+      "Wie sieht denn ein Tag im Leben eines Mönchs aus? Diese Frage wird uns "
+      "immer wieder gestellt, wenn Gruppen uns besuchen. Die äussere Struktur, "
+      "der Tagesablauf, ist dabei schnell erzählt. Um seinem tieferen Sinn auf die "
+      "Spur zu kommen, muss man ihn leben. Dann entdeckt man: Es geht um nichts "
+      "weniger als um die Begegnung mit Gott.";
 
   final List<Map<String, dynamic>> dailySchedule = [
     {'time': '05:30 Uhr', 'title': 'Vigil', 'description': '...', 'icon': Icons.nightlight_round},
@@ -25,8 +31,8 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
     {'time': '19:55 Uhr', 'title': 'Totengedenken, geistliche Lesung und Komplet', 'description': '...', 'icon': Icons.bedtime},
   ];
 
-  // Filter only events with actual timestamps for the bottom timeline
-  List<Map<String, dynamic>> get _timelineEvents => dailySchedule.where((event) => event['time']!.isNotEmpty).toList();
+  List<Map<String, dynamic>> get _timelineEvents =>
+      dailySchedule.where((event) => event['time']!.isNotEmpty).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,11 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
       appBar: AppBar(
         title: Text(
           appLoc.alltagImKloster,
-          style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: primaryColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
         ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -47,50 +57,127 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
           Expanded(
             child: PageView.builder(
               controller: _pageController,
-              scrollDirection: Axis.horizontal,
-              itemCount: dailySchedule.length,
+              itemCount: dailySchedule.length + 1, // +1 for the intro page
               onPageChanged: (index) {
                 setState(() => _currentIndex = index);
               },
               itemBuilder: (context, index) {
-                return _buildEventCard(dailySchedule[index]);
+                if (index == 0) {
+                  return _buildIntroPage(); // First page is the intro
+                } else {
+                  return _buildEventCard(dailySchedule[index - 1]); // Events start from index 1
+                }
               },
             ),
           ),
-          _buildTimeline(),
+          if (_currentIndex != 0) _buildTimeline(), // Hide timeline on intro page
         ],
+      ),
+    );
+  }
+
+  Widget _buildIntroPage() {
+    return Container(
+      padding: EdgeInsets.all(24),
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [primaryColor.withValues(alpha: 0.2), Colors.white],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          padding: EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Ein Tag im Kloster",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                introText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  _pageController.animateToPage(
+                    1, // Move to the first event
+                    duration: Duration(milliseconds: 700),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  child: Text(
+                    "Zum Tagesablauf",
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildEventCard(Map<String, dynamic> event) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [primaryColor.withValues(alpha: 0.2), Colors.white],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(event['icon'], size: 50, color: primaryColor),
+              Icon(event['icon'], size: 60, color: primaryColor),
               SizedBox(height: 10),
               Text(
                 event['time'].isNotEmpty ? event['time'] : '',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: primaryColor),
               ),
               SizedBox(height: 8),
               Text(
                 event['title'],
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
               Text(
                 event['description'],
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
               ),
             ],
           ),
@@ -100,54 +187,46 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
   }
 
   Widget _buildTimeline() {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
-      border: Border(top: BorderSide(color: primaryColor, width: 2)),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: _timelineEvents.asMap().entries.map((entry) {
-        Map<String, dynamic> event = entry.value; // Removed 'index'
-        
-        // Get the correct index of this event in the full dailySchedule
-        int targetIndex = dailySchedule.indexWhere((e) => e['time'] == event['time']);
-        bool isSelected = _currentIndex == targetIndex;
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: primaryColor, width: 2)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: _timelineEvents.asMap().entries.map((entry) {
+          Map<String, dynamic> event = entry.value;
+          int targetIndex = dailySchedule.indexWhere((e) => e['time'] == event['time']) + 1;
+          bool isSelected = _currentIndex == targetIndex;
 
-        return GestureDetector(
-          onTap: () {
-            if (targetIndex != -1) {
+          return GestureDetector(
+            onTap: () {
               _pageController.animateToPage(
                 targetIndex,
                 duration: Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
               );
-              setState(() {
-                _currentIndex = targetIndex; // Update selected event
-              });
-            }
-          },
-          child: Column(
-            children: [
-              Icon(
-                event['icon'],
-                color: isSelected ? primaryColor : Colors.black,
-                size: isSelected ? 30 : 24,
-              ),
-              SizedBox(height: 5),
-              Text(
-                event['time'],
-                style: TextStyle(
-                  fontSize: isSelected ? 14 : 12,
-                  color: isSelected ? primaryColor : Colors.black54,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              setState(() => _currentIndex = targetIndex);
+            },
+            child: Column(
+              children: [
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  width: isSelected ? 35 : 30,
+                  height: isSelected ? 35 : 30,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isSelected ? primaryColor : Colors.grey[300],
+                  ),
+                  child: Icon(event['icon'], color: isSelected ? Colors.white : Colors.black),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ),
-  );
-}
+                SizedBox(height: 5),
+                Text(event['time'], style: TextStyle(color: isSelected ? primaryColor : Colors.black54)),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 }
