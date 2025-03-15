@@ -1,152 +1,153 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AllTagImKloster extends StatelessWidget {
-  final Color primaryColor = Color.fromRGBO(176, 148, 60, 1); // Updated Color
+class AllTagImKloster extends StatefulWidget {
+  @override
+  _AllTagImKlosterState createState() => _AllTagImKlosterState();
+}
+
+class _AllTagImKlosterState extends State<AllTagImKloster> {
+  final Color primaryColor = Color.fromRGBO(176, 148, 60, 1);
+  final PageController _pageController = PageController();
+
+  int _currentIndex = 0;
+
+  final List<Map<String, dynamic>> dailySchedule = [
+    {'time': '05:30 Uhr', 'title': 'Vigil', 'description': '...', 'icon': Icons.nightlight_round},
+    {'time': '', 'title': 'Frühstück und Betrachtung', 'description': '...', 'icon': Icons.wb_twilight},
+    {'time': '07:15 Uhr', 'title': 'Laudes', 'description': '...', 'icon': Icons.wb_sunny},
+    {'time': '', 'title': 'Arbeitszeit', 'description': '...', 'icon': Icons.construction},
+    {'time': '11:15 Uhr', 'title': 'Konventamt und Mittagsgebet', 'description': '...', 'icon': Icons.church},
+    {'time': '12:15 Uhr', 'title': 'Mittagessen und Rekreation', 'description': '...', 'icon': Icons.restaurant},
+    {'time': '16:30 Uhr', 'title': 'Vesper und Salve Regina', 'description': '...', 'icon': Icons.nightlight},
+    {'time': '', 'title': 'Geistliche Lesung', 'description': '...', 'icon': Icons.menu_book},
+    {'time': '18:30 Uhr', 'title': 'Abendessen und Rekreation', 'description': '...', 'icon': Icons.coffee},
+    {'time': '19:55 Uhr', 'title': 'Totengedenken, geistliche Lesung und Komplet', 'description': '...', 'icon': Icons.bedtime},
+  ];
+
+  // Filter only events with actual timestamps for the bottom timeline
+  List<Map<String, dynamic>> get _timelineEvents => dailySchedule.where((event) => event['time']!.isNotEmpty).toList();
 
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          ' ',
+          appLoc.alltagImKloster,
           style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 2,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              appLoc.alltagImKloster,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: primaryColor,
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: dailySchedule.length,
+              onPageChanged: (index) {
+                setState(() => _currentIndex = index);
+              },
+              itemBuilder: (context, index) {
+                return _buildEventCard(dailySchedule[index]);
+              },
+            ),
+          ),
+          _buildTimeline(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEventCard(Map<String, dynamic> event) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(event['icon'], size: 50, color: primaryColor),
+              SizedBox(height: 10),
+              Text(
+                event['time'].isNotEmpty ? event['time'] : '',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor),
               ),
-            ),
-            SizedBox(height: 12),
-            Text(
-              appLoc.alltagImKlosterIntro,
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 24),
-            _buildTimeline(),
-          ],
+              SizedBox(height: 8),
+              Text(
+                event['title'],
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                event['description'],
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildTimeline() {
-    List<Map<String, String>> events = [
-      {'time': '05.30', 'title': 'Vigil', 'description': '...'},
-      {'time': 'Nach Vigil', 'title': 'Frühstück und Betrachtung', 'description': '...'},
-      {'time': '07.15', 'title': 'Laudes', 'description': '...'},
-      {'time': '12.00', 'title': 'Mittagshore und Mittagessen', 'description': '...'},
-      {'time': '18.00', 'title': 'Vesper', 'description': '...'},
-      {'time': '20.00', 'title': 'Komplet', 'description': '...'},
-    ];
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 10),
+    decoration: BoxDecoration(
+      border: Border(top: BorderSide(color: primaryColor, width: 2)),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: _timelineEvents.asMap().entries.map((entry) {
+        Map<String, dynamic> event = entry.value; // Removed 'index'
+        
+        // Get the correct index of this event in the full dailySchedule
+        int targetIndex = dailySchedule.indexWhere((e) => e['time'] == event['time']);
+        bool isSelected = _currentIndex == targetIndex;
 
-    return Column(
-      children: events.asMap().entries.map((entry) {
-        int index = entry.key;
-        Map<String, String> event = entry.value;
-        return _buildTimelineEvent(
-          time: event['time']!,
-          title: event['title']!,
-          description: event['description']!,
-          isFirst: index == 0,
-          isLast: index == events.length - 1,
+        return GestureDetector(
+          onTap: () {
+            if (targetIndex != -1) {
+              _pageController.animateToPage(
+                targetIndex,
+                duration: Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+              setState(() {
+                _currentIndex = targetIndex; // Update selected event
+              });
+            }
+          },
+          child: Column(
+            children: [
+              Icon(
+                event['icon'],
+                color: isSelected ? primaryColor : Colors.black,
+                size: isSelected ? 30 : 24,
+              ),
+              SizedBox(height: 5),
+              Text(
+                event['time'],
+                style: TextStyle(
+                  fontSize: isSelected ? 14 : 12,
+                  color: isSelected ? primaryColor : Colors.black54,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
         );
       }).toList(),
-    );
-  }
-
-  Widget _buildTimelineEvent({
-    required String time,
-    required String title,
-    required String description,
-    bool isFirst = false,
-    bool isLast = false,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            if (!isFirst)
-              Container(height: 20, width: 2, color: primaryColor.withValues(alpha: 0.5)),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: primaryColor,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: primaryColor.withValues(alpha: 0.3),
-                    blurRadius: 6,
-                    spreadRadius: 2,
-                  )
-                ],
-              ),
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    time,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                ),
-              ),
-            ),
-            if (!isLast)
-              Container(height: 40, width: 2, color: primaryColor.withValues(alpha: 0.5)),
-          ],
-        ),
-        SizedBox(width: 16),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: 12),
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: primaryColor, width: 1.5),
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 6,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+    ),
+  );
+}
 }
