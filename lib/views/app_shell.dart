@@ -34,7 +34,7 @@ class _AppShellState extends State<AppShell> {
   ];
 
   void _onItemTapped(int index) async {
-    if (index == 5) { // Online Shop index
+    if (index == 5) {
       final Uri url = Uri.parse('https://shop.kloster-einsiedeln.ch/');
       if (await canLaunchUrl(url)) {
         await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -56,32 +56,33 @@ class _AppShellState extends State<AppShell> {
       appBar: (isLiveStreamPage && isLandscape)
           ? null
           : AppBar(
+              toolbarHeight: 64, // **Skinnier app bar**
+              backgroundColor: Colors.white, // **Stays white on scroll**
+              elevation: 0, // **No shadow**
+              centerTitle: true,
+
               title: Text(
                 _titles[_selectedIndex],
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18, // **Smaller title for balance**
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              backgroundColor: Colors.white,
-              elevation: 0, // **No shadow for a modern look**
-              centerTitle: true,
 
-              // **Clickable Logo**
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 10), // **Ensures it isn't too close to the edge**
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = 0; // Navigates to `MainPage()`
-                    });
-                  },
+              // **Smaller Logo, Maintaining Aspect Ratio**
+              leadingWidth: 150, // **Reduced width**
+              leading: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // **Adds buffer**
                   child: Image.asset(
                     'assets/images/klosterlogohorizontal.png',
-                    width: 120, // **Increased logo size**
-                    height: 120,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.contain, // **Maintains aspect ratio**
                   ),
                 ),
               ),
