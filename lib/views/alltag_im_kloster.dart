@@ -20,13 +20,13 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
 
   final List<Map<String, dynamic>> dailySchedule = [
     {'time': '05:30 Uhr', 'title': 'Vigil', 'description': '...', 'icon': Icons.light},
-    {'time': '', 'title': 'Frühstück und Betrachtung', 'description': '...', 'icon': Icons.wb_twilight},
+    {'time': '',          'title': 'Frühstück und Betrachtung', 'description': '...', 'icon': Icons.wb_twilight},
     {'time': '07:15 Uhr', 'title': 'Laudes', 'description': '...', 'icon': Icons.wb_sunny},
-    {'time': '', 'title': 'Arbeitszeit', 'description': '...', 'icon': Icons.work_off_rounded},
+    {'time': '',          'title': 'Arbeitszeit', 'description': '...', 'icon': Icons.work_off_rounded},
     {'time': '11:15 Uhr', 'title': 'Konventamt und Mittagsgebet', 'description': '...', 'icon': Icons.church},
     {'time': '12:15 Uhr', 'title': 'Mittagessen und Rekreation', 'description': '...', 'icon': Icons.restaurant},
     {'time': '16:30 Uhr', 'title': 'Vesper und Salve Regina', 'description': '...', 'icon': Icons.nightlight},
-    {'time': '', 'title': 'Geistliche Lesung', 'description': '...', 'icon': Icons.menu_book},
+    {'time': '',          'title': 'Geistliche Lesung', 'description': '...', 'icon': Icons.menu_book},
     {'time': '18:30 Uhr', 'title': 'Abendessen und Rekreation', 'description': '...', 'icon': Icons.coffee},
     {'time': '19:55 Uhr', 'title': 'Totengedenken, geistliche Lesung und Komplet', 'description': '...', 'icon': Icons.bedtime},
   ];
