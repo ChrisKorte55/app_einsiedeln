@@ -10,6 +10,7 @@ class EventsPage extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           const Padding(
