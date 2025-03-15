@@ -56,16 +56,39 @@ class _AppShellState extends State<AppShell> {
       appBar: (isLiveStreamPage && isLandscape)
           ? null
           : AppBar(
-              title: Text(_titles[_selectedIndex], style: TextStyle(color: Colors.black)),
-              backgroundColor: Colors.white,
-              elevation: 2,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/images/klosterlogohorizontal.png', width: 80, height: 80,),
+              title: Text(
+                _titles[_selectedIndex],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              backgroundColor: Colors.white,
+              elevation: 0, // **No shadow for a modern look**
+              centerTitle: true,
+
+              // **Clickable Logo**
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 10), // **Ensures it isn't too close to the edge**
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 0; // Navigates to `MainPage()`
+                    });
+                  },
+                  child: Image.asset(
+                    'assets/images/klosterlogohorizontal.png',
+                    width: 120, // **Increased logo size**
+                    height: 120,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GestureDetector(
                     onTap: () {
                       Locale newLocale = Localizations.localeOf(context).languageCode == 'de'
@@ -73,15 +96,25 @@ class _AppShellState extends State<AppShell> {
                           : Locale('de');
                       languageProvider.setLocale(newLocale);
                     },
-                    child: Text('DE | EN', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      child: Text(
+                        'DE | EN',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-      body: IndexedStack(index: _selectedIndex, children: _pages,),
+      body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: (isLiveStreamPage && isLandscape)
           ? null
-          : CustomNavigationBar(selectedIndex: _selectedIndex, onItemTapped: _onItemTapped,),
+          : CustomNavigationBar(selectedIndex: _selectedIndex, onItemTapped: _onItemTapped),
     );
   }
 }
