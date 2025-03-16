@@ -66,11 +66,9 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Hero Section with Refined Fade Effect
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                // Slideshow Background
                 SizedBox(
                   height: size.height * 0.75,
                   child: PageView.builder(
@@ -85,46 +83,32 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                 ),
-
-                // Top Overlay for Readability
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.black.withValues(alpha: 76), Colors.transparent],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
+                        colors: [Colors.black.withValues(alpha: 0.3), Colors.transparent],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
                     ),
                   ),
                 ),
-
-                // **🔥 Improved Fade Effect at the Bottom 🔥**
                 Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
                   child: Container(
-                    height: 140, // Adjusted height for smoother blending
+                    height: 140,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withValues(alpha: 0.1),
-                          Colors.white.withValues(alpha: 0.2), // Softer white to prevent harsh contrast
-                          Colors.white.withValues(alpha: 0.3),
-                          Colors.white.withValues(alpha: 0.4),
-                          Colors.white.withValues(alpha: 0.5),
-                          Colors.transparent // More gradual fade
-                        ],
-                        stops: [0.0, 0.1, 0.3, 0.5, 0.6, 1.0],
+                        colors: [Colors.white, Colors.white.withValues(alpha: 0)],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                       ),
                     ),
                   ),
                 ),
-
-                // Hero Text & Call-to-Action Button
                 Positioned(
                   bottom: 120,
                   child: Column(
@@ -169,8 +153,6 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-
-            // **✅ Fix: Explicitly Set White Background for Content**
             Container(
               color: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
@@ -196,12 +178,9 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-
             SizedBox(height: 30),
-
-            // **✅ Fix: Explicitly Set White Background Behind Buttons**
             Container(
-              color: Colors.white, // Ensure consistent white background
+              color: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: GridView.count(
                 shrinkWrap: true,
@@ -217,7 +196,6 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-
             SizedBox(height: 40),
           ],
         ),
@@ -230,9 +208,6 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-
-
-// **🔥 About Us Button - Modernized Card Style 🔥**
 class AboutUsButton extends StatelessWidget {
   final String label;
   final String imagePath;

@@ -40,7 +40,7 @@ Future<List<Map<String, dynamic>>> loadSchedule() async {
     // Iterate over each row, skipping the header
     for (var i = 1; i < rowsAsListOfValues.length; i++) {
       var row = rowsAsListOfValues[i];
-      IconData icon = getIconFromOrder(row[0]);
+      IconData icon = getIconFromOrder(row[0].toString());  // Ensure order is a string
       loadedSchedule.add({
         'order': row[0], // Order number from CSV
         'time': row[1], // Time from CSV

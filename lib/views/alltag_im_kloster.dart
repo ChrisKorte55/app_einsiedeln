@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AllTagImKloster extends StatefulWidget {
@@ -10,27 +12,66 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
   final Color primaryColor = Color(0xFFB0943C);
   final PageController _pageController = PageController();
   int _currentIndex = 0;
+  List<Map<String, dynamic>> dailySchedule = [];
 
-  final List<Map<String, dynamic>> dailySchedule = [
-    {'time': '05:30', 'title': 'Vigil', 'description': '...', 'icon': Icons.light},
-    {'time': '',          'title': 'Frühstück und Betrachtung', 'description': '...', 'icon': Icons.wb_twilight},
-    {'time': '07:15', 'title': 'Laudes', 'description': '...', 'icon': Icons.wb_sunny},
-    {'time': '',          'title': 'Arbeitszeit', 'description': '...', 'icon': Icons.work_off_rounded},
-    {'time': '11:15', 'title': 'Konventamt und Mittagsgebet', 'description': '...', 'icon': Icons.church},
-    {'time': '12:15', 'title': 'Mittagessen und Rekreation', 'description': '...', 'icon': Icons.restaurant},
-    {'time': '16:30', 'title': 'Vesper und Salve Regina', 'description': '...', 'icon': Icons.nightlight},
-    {'time': '',          'title': 'Geistliche Lesung', 'description': '...', 'icon': Icons.menu_book},
-    {'time': '18:30', 'title': 'Abendessen und Rekreation', 'description': '...', 'icon': Icons.coffee},
-    {'time': '19:55', 'title': 'Totengedenken, geistliche Lesung und Komplet', 'description': '...', 'icon': Icons.bedtime},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadSchedule().then((data) {
+      setState(() {
+        dailySchedule = data;
+      });
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> loadSchedule() async {
+    try {
+      final csvData = await rootBundle.loadString('assets/kloster_alltag_texte.csv');
+      List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(csvData);
+      List<Map<String, dynamic>> loadedSchedule = [];
+
+      for (var i = 1; i < rowsAsListOfValues.length; i++) {
+        var row = rowsAsListOfValues[i];
+        IconData icon = getIconFromOrder(row[0].toString());
+        loadedSchedule.add({
+          'order': row[0],
+          'time': row[1],
+          'titleGerman': row[2],
+          'titleEnglish': row[3],
+          'textGerman': row[4],
+          'textEnglish': row[5],
+          'icon': icon,
+        });
+      }
+      return loadedSchedule;
+    } catch (e) {
+      print('Error loading the schedule CSV: $e');
+      return [];
+    }
+  }
+
+  IconData getIconFromOrder(String order) {
+    switch (order) {
+      case '1': return Icons.light;
+      case '2': return Icons.wb_twilight;
+      case '3': return Icons.wb_sunny;
+      case '4': return Icons.work_off_rounded;
+      case '5': return Icons.church;
+      case '6': return Icons.restaurant;
+      case '7': return Icons.nightlight_round;
+      case '8': return Icons.menu_book;
+      case '9': return Icons.coffee;
+      case '10': return Icons.bedtime;
+      default: return Icons.help_outline;
+    }
+  }
 
   List<Map<String, dynamic>> get _timelineEvents =>
-      dailySchedule.where((event) => event['time']!.isNotEmpty).toList();
+      dailySchedule.where((event) => event['time'].isNotEmpty).toList();
 
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -74,7 +115,6 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
     );
   }
 
-  /// **🌄 Fixed Parallax Background Effect**
   Widget _buildParallaxBackground() {
     return Positioned.fill(
       child: LayoutBuilder(
@@ -86,10 +126,10 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
               return Transform.translate(
                 offset: Offset(offset, 0),
                 child: Image.asset(
-                  'assets/images/DSC_0734-Pano.jpg', // ✅ Panorama Background
+                  'assets/images/DSC_0734-Pano.jpg',
                   fit: BoxFit.cover,
                   width: constraints.maxWidth,
-                  height: constraints.maxHeight * 1.2, // ✅ Ensures full coverage
+                  height: constraints.maxHeight * 1.2,
                 ),
               );
             },
@@ -99,11 +139,10 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
     );
   }
 
-  /// **📜 Intro Page**
   Widget _buildIntroPage() {
     final appLoc = AppLocalizations.of(context)!;
     return _buildWhiteCard(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30), // ✅ Reduced vertical padding
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -140,31 +179,33 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
     );
   }
 
-  /// **🕰️ Event Card**
   Widget _buildEventCard(Map<String, dynamic> event) {
+    final appLoc = AppLocalizations.of(context)!;
+    String title = appLoc.localeName == 'de' ? event['titleGerman'] : event['titleEnglish'];
+    String description = appLoc.localeName == 'de' ? event['textGerman'] : event['textEnglish'];
+
     return _buildWhiteCard(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20), // ✅ Reduced height to avoid app bar overlap
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(event['icon'], size: 50, color: primaryColor),
           SizedBox(height: 8),
-          Text(event['time'].isNotEmpty ? event['time'] : '', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor)),
+          Text(event['time'], style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor)),
           SizedBox(height: 6),
-          Text(event['title'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
           SizedBox(height: 8),
-          Text(event['description'], textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.grey[700])),
+          Text(description, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.grey[700])),
         ],
       ),
     );
   }
 
-  /// **📅 White Navigation Bar**
   Widget _buildWhiteNavigationBar() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white, // ✅ Fully white background
+        color: Colors.white,
         border: Border(top: BorderSide(color: primaryColor, width: 2)),
       ),
       child: Row(
@@ -196,7 +237,6 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
     );
   }
 
-  /// **✅ White Card Wrapper**
   Widget _buildWhiteCard({required Widget child, EdgeInsets? padding}) {
     return Padding(
       padding: padding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 16),
