@@ -56,6 +56,7 @@ flutter:
   assets:
     - assets/images/
     - assets/kloster_tour_texts.csv
+    - assets/kloster_alltag_texte.csv
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

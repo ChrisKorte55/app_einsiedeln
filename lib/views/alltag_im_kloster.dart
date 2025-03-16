@@ -11,13 +11,6 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  final String introText =
-      "Wie sieht denn ein Tag im Leben eines Mönchs aus? Diese Frage wird uns "
-      "immer wieder gestellt, wenn Gruppen uns besuchen. Die äussere Struktur, "
-      "der Tagesablauf, ist dabei schnell erzählt. Um seinem tieferen Sinn auf die "
-      "Spur zu kommen, muss man ihn leben. Dann entdeckt man: Es geht um nichts "
-      "weniger als um die Begegnung mit Gott.";
-
   final List<Map<String, dynamic>> dailySchedule = [
     {'time': '05:30', 'title': 'Vigil', 'description': '...', 'icon': Icons.light},
     {'time': '',          'title': 'Frühstück und Betrachtung', 'description': '...', 'icon': Icons.wb_twilight},
@@ -108,18 +101,19 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
 
   /// **📜 Intro Page**
   Widget _buildIntroPage() {
+    final appLoc = AppLocalizations.of(context)!;
     return _buildWhiteCard(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30), // ✅ Reduced vertical padding
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Ein Tag im Kloster",
+            appLoc.alltagImKloster,
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor),
           ),
           SizedBox(height: 15),
           Text(
-            introText,
+            appLoc.alltagImKlosterIntro,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.black87),
           ),
@@ -138,7 +132,7 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Text("Zum Tagesablauf", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(appLoc.zumAlltag, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
