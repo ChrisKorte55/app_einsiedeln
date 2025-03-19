@@ -9,17 +9,6 @@ class KlosterHistoryPage extends StatefulWidget {
 class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   final Color primaryColor = Color.fromRGBO(176, 148, 60, 1);
 
-  final String introText = 
-      "In der über tausendjährigen Klostergeschichte spiegelt sich die Geschichte "
-      "von Kirche und Gesellschaft. Sie zeigt, dass unser Kloster keine Insel darstellt, "
-      "sondern auf vielfältige Weise mit seiner Umwelt verbunden ist. Blüte und Niedergang, "
-      "Idealismus und Dekadenz, Heiligkeit und Sünde, Licht und Schatten wechseln sich ab "
-      "im Gang durch die Jahrhunderte. Und doch: Was im 9. Jahrhundert durch den heiligen "
-      "Meinrad seinen Anfang nahm, hat auf vielfältige Weise Frucht getragen und ist für "
-      "unzählige Menschen zum Segen geworden. Unsere Klostergemeinschaft kann so im 21. "
-      "Jahrhundert auf ein gutes Fundament bauen und fühlt sich privilegiert, die Geschichte "
-      "von Kloster und Wallfahrtsort weiterzuschreiben.";
-
   final List<Map<String, dynamic>> historyEvents = [
     {
       'date': '1820',
@@ -111,6 +100,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   }
 
   Widget _buildIntroSection() {
+    final appLoc = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Card(
@@ -132,7 +122,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
               ),
               SizedBox(height: 10),
               Text(
-                introText,
+                appLoc.historyPageIntro,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
