@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class KlosterHistoryPage extends StatefulWidget {
@@ -8,53 +10,34 @@ class KlosterHistoryPage extends StatefulWidget {
 
 class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   final Color primaryColor = Color.fromRGBO(176, 148, 60, 1);
-
-  final List<Map<String, dynamic>> historyEvents = [
-    {
-      'date': '1820',
-      'title': 'Founding of the Monastery',
-      'description': 'A group of monks established the monastery for solitude and spiritual reflection.',
-      'image': 'assets/images/monastery_founding.jpg'
-    },
-    {
-      'date': '1855',
-      'title': 'First Major Expansion',
-      'description': 'New buildings were added, including a library with ancient manuscripts.',
-      'image': 'assets/images/library_expansion.jpg'
-    },
-    {
-      'date': '1900',
-      'title': 'Fire Incident',
-      'description': 'A fire destroyed parts of the monastery, but it was rebuilt with new materials.',
-      'image': 'assets/images/fire_reconstruction.jpg'
-    },
-    {
-      'date': '1925',
-      'title': 'Cultural Renaissance',
-      'description': 'The monastery became a hub for art and literature.',
-      'image': 'assets/images/cultural_renaissance.jpg'
-    },
-    {
-      'date': '1950',
-      'title': 'Modernization',
-      'description': 'Electricity and plumbing were introduced while keeping the historic charm.',
-      'image': 'assets/images/modernization.jpg'
-    },
-    {
-      'date': '2000',
-      'title': 'Preservation Efforts',
-      'description': 'Restoration projects preserved artifacts for future generations.',
-      'image': 'assets/images/preservation_efforts.jpg'
-    },
-    {
-      'date': '2020',
-      'title': '200-Year Celebration',
-      'description': 'A grand celebration was held to mark 200 years of the monastery.',
-      'image': 'assets/images/200_years.jpg'
-    },
-  ];
-
+  List<Map<String, dynamic>> historyEvents = [];
   int _expandedIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    loadHistoryData();
+  }
+
+  Future<void> loadHistoryData() async {
+    final String csvString = await rootBundle.loadString('kloster_history_texts.csv');
+    List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(csvString);
+
+    setState(() {
+      historyEvents = rowsAsListOfValues.sublist(1).map((List<dynamic> row) {
+        return {
+          'orderID': row[0],
+          'dateGerman': row[1],
+          'dateEnglish': row[2],
+          'titleGerman': row[3],
+          'titleEnglish': row[4],
+          'textGerman': row[5],
+          'textEnglish': row[6],
+          'image': row[7],
+        };
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +75,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   Widget _buildParallaxBackground() {
     return Positioned.fill(
       child: Image.asset(
-        'assets/images/kloster_fog_forest.jpg', // A subtle monastery background
+        'assets/images/kloster_fog_forest.jpg',
         fit: BoxFit.cover,
         opacity: AlwaysStoppedAnimation(0.8),
       ),
@@ -106,14 +89,13 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Colors.white.withValues(alpha: 0.9),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Die Geschichte des Klosters",
+                appLoc.historyPage,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -138,7 +120,11 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   }
 
   Widget _buildTimelineItem(Map<String, dynamic> event, int index, bool isLastItem) {
+    final appLoc = AppLocalizations.of(context)!;
     bool isExpanded = _expandedIndex == index;
+    String date = appLoc.localeName == 'de' ? event['dateGerman'] : event['dateEnglish'];
+    String title = appLoc.localeName == 'de' ? event['titleGerman'] : event['titleEnglish'];
+    String description = appLoc.localeName == 'de' ? event['textGerman'] : event['textEnglish'];
 
     return GestureDetector(
       onTap: () {
@@ -192,7 +178,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        event['date']!,
+                        date,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -201,7 +187,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        event['title']!,
+                        title,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -216,7 +202,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
-                                event['image']!,
+                                event['image'],
                                 height: 120,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
@@ -224,7 +210,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              event['description']!,
+                              description,
                               style: TextStyle(fontSize: 14),
                             ),
                           ],
