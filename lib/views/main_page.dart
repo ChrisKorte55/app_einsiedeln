@@ -6,6 +6,7 @@ import 'package:app_einsiedeln/views/gemeinschaft.dart';
 import 'package:app_einsiedeln/views/guided_tour_home.dart';
 import 'package:app_einsiedeln/views/history.dart';
 import 'alltag_im_kloster.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -197,6 +198,64 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             SizedBox(height: 40),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+              child: Column(
+                children: [
+                  Text(
+                    'Allgemeine Anfragen',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Kloster Einsiedeln\nCH-8840 Einsiedeln\nTel. +41 55 418 61 11',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.camera_alt),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://www.instagram.com/klostereinsiedeln');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.facebook),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://www.facebook.com/klostereinsiedeln');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.video_library),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://www.youtube.com/klostereinsiedeln');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
