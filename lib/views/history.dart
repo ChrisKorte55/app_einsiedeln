@@ -125,6 +125,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
     String date = appLoc.localeName == 'de' ? event['dateGerman'] : event['dateEnglish'];
     String title = appLoc.localeName == 'de' ? event['titleGerman'] : event['titleEnglish'];
     String description = appLoc.localeName == 'de' ? event['textGerman'] : event['textEnglish'];
+    bool hasImage = event['image'] != null && event['image'].isNotEmpty;
 
     return GestureDetector(
       onTap: () {
@@ -194,29 +195,20 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      AnimatedCrossFade(
-                        firstChild: Container(),
-                        secondChild: Column(
-                          children: [
-                            SizedBox(height: 10),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                event['image'],
-                                height: 120,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              description,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
+                      if (hasImage)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/images/${event['image']}',
+                            width: double.infinity,
+                            height: 170, // You can adjust or remove this if it conflicts with the desired layout
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                        crossFadeState: isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                        duration: Duration(milliseconds: 500),
+                      SizedBox(height: 10),
+                      Text(
+                        description,
+                        style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
