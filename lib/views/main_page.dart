@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app_einsiedeln/views/benediktiner.dart';
 import 'package:app_einsiedeln/views/gemeinschaft.dart';
-import 'package:app_einsiedeln/views/guided_tour_home.dart';
 import 'package:app_einsiedeln/views/history.dart';
 import 'alltag_im_kloster.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  final VoidCallback onNavigateToGuidedTour;
+
+  MainPage({Key? key, required this.onNavigateToGuidedTour}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -120,7 +121,13 @@ class _MainPageState extends State<MainPage> {
                           fontSize: 22,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
-                          shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 10.0, color: Colors.black26)],
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0.0, 0.0),
+                              blurRadius: 10.0,
+                              color: Colors.black26,
+                            )
+                          ],
                         ),
                       ),
                       Text(
@@ -129,19 +136,25 @@ class _MainPageState extends State<MainPage> {
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 12.0, color: Colors.black45)],
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0.0, 0.0),
+                              blurRadius: 12.0,
+                              color: Colors.black45,
+                            )
+                          ],
                         ),
                       ),
                       SizedBox(height: 40),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => GuidedTourHome()));
-                        },
+                        onPressed: widget.onNavigateToGuidedTour,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(176, 148, 60, 1),
                           foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                           elevation: 6,
                         ),
                         child: Text(
@@ -190,10 +203,26 @@ class _MainPageState extends State<MainPage> {
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
                 children: [
-                  AboutUsButton(label: appLoc.alltagImKloster, imagePath: 'assets/images/kloster_grass_horz.jpg', onPressed: () => _navigateTo(AllTagImKloster())),
-                  AboutUsButton(label: appLoc.historyPage, imagePath: 'assets/images/03_Decken_und_Boden-008.jpg', onPressed: () => _navigateTo(KlosterHistoryPage())),
-                  AboutUsButton(label: appLoc.gemeinschaft, imagePath: 'assets/images/kloster_saint_trees_horz.jpg', onPressed: () => _navigateTo(Gemeinschaft())),
-                  AboutUsButton(label: appLoc.benediktiner, imagePath: 'assets/images/kloster_hallway.jpg', onPressed: () => _navigateTo(Benediktiner())),
+                  AboutUsButton(
+                    label: appLoc.alltagImKloster,
+                    imagePath: 'assets/images/kloster_grass_horz.jpg',
+                    onPressed: () => _navigateTo(AllTagImKloster()),
+                  ),
+                  AboutUsButton(
+                    label: appLoc.historyPage,
+                    imagePath: 'assets/images/03_Decken_und_Boden-008.jpg',
+                    onPressed: () => _navigateTo(KlosterHistoryPage()),
+                  ),
+                  AboutUsButton(
+                    label: appLoc.gemeinschaft,
+                    imagePath: 'assets/images/kloster_saint_trees_horz.jpg',
+                    onPressed: () => _navigateTo(Gemeinschaft()),
+                  ),
+                  AboutUsButton(
+                    label: appLoc.benediktiner,
+                    imagePath: 'assets/images/kloster_hallway.jpg',
+                    onPressed: () => _navigateTo(Benediktiner()),
+                  ),
                 ],
               ),
             ),
@@ -272,7 +301,8 @@ class AboutUsButton extends StatelessWidget {
   final String imagePath;
   final VoidCallback onPressed;
 
-  const AboutUsButton({Key? key, required this.label, required this.imagePath, required this.onPressed}) : super(key: key);
+  const AboutUsButton({Key? key, required this.label, required this.imagePath, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +326,18 @@ class AboutUsButton extends StatelessWidget {
             Center(
               child: Text(
                 label,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white, shadows: [Shadow(offset: Offset(0.0, 0.0), blurRadius: 8.0, color: Colors.black54)]),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(0.0, 0.0),
+                      blurRadius: 8.0,
+                      color: Colors.black54,
+                    )
+                  ],
+                ),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -18,13 +18,7 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    MainPage(),
-    EventsPage(),
-    LiveStreamPage(),
-    SalvePage(),
-    GuidedTourHome(),
-  ];
+  late final List<Widget> _pages;
 
   final List<String> _titles = [
     " ",
@@ -33,6 +27,25 @@ class _AppShellState extends State<AppShell> {
     "Salve Newsletter",
     "Guided Tour",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      // Pass a callback to MainPage that sets the selected index to 4 (GuidedTourHome)
+      MainPage(
+        onNavigateToGuidedTour: () {
+          setState(() {
+            _selectedIndex = 4;
+          });
+        },
+      ),
+      EventsPage(),
+      LiveStreamPage(),
+      SalvePage(),
+      GuidedTourHome(),
+    ];
+  }
 
   void _onItemTapped(int index) async {
     if (index == 5) {
@@ -63,7 +76,6 @@ class _AppShellState extends State<AppShell> {
               elevation: 0, // **No shadow**
               centerTitle: true,
               systemOverlayStyle: SystemUiOverlayStyle.dark, // **Prevents tinting on scroll**
-
               title: Text(
                 _titles[_selectedIndex],
                 style: TextStyle(
@@ -72,7 +84,6 @@ class _AppShellState extends State<AppShell> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               // **Smaller Logo, Maintaining Aspect Ratio**
               leadingWidth: 150, // **Reduced width**
               leading: GestureDetector(
@@ -89,7 +100,6 @@ class _AppShellState extends State<AppShell> {
                   ),
                 ),
               ),
-
               actions: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
