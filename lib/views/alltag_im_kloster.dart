@@ -14,6 +14,10 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
   int _currentIndex = 0;
   List<Map<String, dynamic>> dailySchedule = [];
 
+  // Set these to the actual pixel dimensions of your panorama image.
+  final double imageIntrinsicWidth = 3442;
+  final double imageIntrinsicHeight = 800;
+
   @override
   void initState() {
     super.initState();
@@ -122,15 +126,48 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
           return AnimatedBuilder(
             animation: _pageController,
             builder: (context, child) {
-              double offset = (_pageController.hasClients ? _pageController.page ?? 0 : 0) * -50;
-              return Transform.translate(
-                offset: Offset(offset, 0),
-                child: Image.asset(
-                  'assets/images/DSC_0734-Pano.jpg',
-                  fit: BoxFit.cover,
-                  width: constraints.maxWidth,
-                  height: constraints.maxHeight * 1.2,
-                ),
+              final screenWidth = constraints.maxWidth;
+              final screenHeight = constraints.maxHeight * 1.2;
+
+              // We'll scale the image so that its height matches screenHeight,
+              // while preserving aspect ratio. That means the final width
+              // might be quite large if the image is wide.
+              final double aspectRatio = imageIntrinsicWidth / imageIntrinsicHeight;
+              final double finalWidth = screenHeight * aspectRatio;
+              final double extraWidth = finalWidth - screenWidth;
+
+              // totalPages = 1 (intro) + # of events
+              final int totalPages = dailySchedule.length + 1;
+              final double currentPage = _pageController.hasClients
+                  ? _pageController.page ?? 0
+                  : 0;
+              // Range 0.0 to 1.0 as we go from first page to last
+              final double normalizedOffset = (totalPages > 1)
+                  ? (currentPage / (totalPages - 1))
+                  : 0.0;
+              // Shift the background from 0 to -extraWidth
+              final double offset = -extraWidth * normalizedOffset;
+
+              return Stack(
+                children: [
+                  Positioned(
+                    left: offset,
+                    top: 0,
+                    width: finalWidth,
+                    height: screenHeight,
+                    child: OverflowBox(
+                      maxWidth: finalWidth,
+                      minWidth: finalWidth,
+                      minHeight: screenHeight,
+                      maxHeight: screenHeight,
+                      child: Image.asset(
+                        'assets/images/DSC_0734-Pano.jpg',
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topLeft,
+                      ),
+                    ),
+                  ),
+                ],
               );
             },
           );
@@ -171,7 +208,10 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Text(appLoc.zumAlltag, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(
+                appLoc.zumAlltag,
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
