@@ -86,7 +86,7 @@ class GuidedTourHome extends StatelessWidget {
                   // **🚶 Tour Outside Button**
                   _buildTourButton(
                     context,
-                    label: 'Tour Outside',
+                    label: appLoc.outsideTour,
                     imagePath: 'assets/images/kloster_front_horz3.jpg',
                     onPressed: () {
                       Navigator.push(
