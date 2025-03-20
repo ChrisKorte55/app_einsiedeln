@@ -163,7 +163,7 @@ class _TourOutsideState extends State<TourOutside> {
                                         borderRadius: BorderRadius.circular(15),
                                         child: Image.asset(
                                           'assets/images/${location.imageFile}',
-                                          height: 150,
+                                          height: 160,
                                           width: double.infinity,
                                           fit: BoxFit.cover,
                                         ),
