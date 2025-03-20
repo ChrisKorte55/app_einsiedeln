@@ -227,7 +227,7 @@ class _MainPageState extends State<MainPage> {
                       IconButton(
                         icon: Icon(Icons.camera_alt),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.instagram.com/klostereinsiedeln');
+                          final Uri url = Uri.parse('https://www.instagram.com/kloster_einsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
@@ -236,7 +236,7 @@ class _MainPageState extends State<MainPage> {
                       IconButton(
                         icon: Icon(Icons.facebook),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.facebook.com/klostereinsiedeln');
+                          final Uri url = Uri.parse('https://www.facebook.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
@@ -245,7 +245,7 @@ class _MainPageState extends State<MainPage> {
                       IconButton(
                         icon: Icon(Icons.video_library),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.youtube.com/klostereinsiedeln');
+                          final Uri url = Uri.parse('https://www.youtube.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }

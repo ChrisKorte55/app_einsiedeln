@@ -32,10 +32,11 @@ class InteractiveBlueprint extends StatelessWidget {
                   return Stack(
                     children: [
                       Image.asset(
-                        'assets/images/floorplanzoomedin.png',
+                        'assets/images/klosterfloorplanV3.png',
                         width: displayWidth,
                         height: displayHeight,
                         fit: BoxFit.contain,
+                        
                       ),
                       ...locations.map((location) {
                         double xPosition =
