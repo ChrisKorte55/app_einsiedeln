@@ -105,111 +105,171 @@ class _TourOutsideState extends State<TourOutside> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text("appLoc.tourPageTitle")),
-        body: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  // Top part: PageView with tour location cards (vertical scrolling within each card)
-                  Expanded(
-                    flex: 3,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: locations.length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        final location = locations[index];
-                        return Card(
-                          margin: const EdgeInsets.all(8),
-                          elevation: selectedIndex == index ? 4 : 1,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Display the image from assets.
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                      'assets/images/${location.imageFile}',
-                                      height: 150,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    location.title,
-                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    isGerman ? location.textGerman : location.textEnglish,
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ],
+        // Modern AppBar with a gradient background (using white here as requested)
+        appBar: AppBar(
+          title: Text(appLoc.outsideTour),
+          centerTitle: true,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.white, Colors.white],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          elevation: 4,
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFF5F5F5), Color(0xFFE0E0E0)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    // Top part: PageView with tour location cards
+                    Expanded(
+                      flex: 3,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: locations.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          final location = locations[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  // Bottom part: Map with markers overlay, using AspectRatio to ensure the entire map is shown
-                  AspectRatio(
-                    aspectRatio: originalMapWidth / originalMapHeight,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        return Stack(
-                          children: [
-                            // The map image fully visible
-                            Image.asset(
-                              'assets/images/kloster_uebersicht.jpg',
-                              width: constraints.maxWidth,
-                              height: constraints.maxHeight,
-                              fit: BoxFit.contain,
-                            ),
-                            // Place markers on the map
-                            ...locations.map((location) {
-                              final index = locations.indexOf(location);
-                              final left = scaleX(location.x, constraints.maxWidth);
-                              final top = scaleY(location.y, constraints.maxHeight);
-                              final isSelected = index == selectedIndex;
-                              return Positioned(
-                                left: left - 12, // adjust offset to center the marker
-                                top: top - 24,  // adjust offset for marker tip
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      selectedIndex = index;
-                                    });
-                                    _pageController.animateToPage(
-                                      selectedIndex,
-                                      duration: const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.location_on,
-                                    size: isSelected ? 36 : 28,
-                                    color: isSelected ? Colors.red : Colors.blue,
+                              elevation: 6,
+                              shadowColor: Colors.black45,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.asset(
+                                          'assets/images/${location.imageFile}',
+                                          height: 150,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        location.title,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        isGerman ? location.textGerman : location.textEnglish,
+                                        style: Theme.of(context).textTheme.bodyMedium,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            }).toList(),
-                          ],
-                        );
-                      },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    // Bottom part: Map with markers overlay
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AspectRatio(
+                        aspectRatio: originalMapWidth / originalMapHeight,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Stack(
+                              children: [
+                                // Map image with rounded corners
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.asset(
+                                    'assets/images/kloster_uebersicht.jpg',
+                                    width: constraints.maxWidth,
+                                    height: constraints.maxHeight,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                // Custom markers on the map
+                                ...locations.map((location) {
+                                  final index = locations.indexOf(location);
+                                  final left = scaleX(location.x, constraints.maxWidth);
+                                  final top = scaleY(location.y, constraints.maxHeight);
+                                  final isSelected = index == selectedIndex;
+                                  final double markerRadius = isSelected ? 18 : 14;
+                                  return Positioned(
+                                    left: left - markerRadius,
+                                    top: top - markerRadius,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedIndex = index;
+                                        });
+                                        _pageController.animateToPage(
+                                          selectedIndex,
+                                          duration: const Duration(milliseconds: 300),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      },
+                                      // ** Only the circle with the ID now, no name label. **
+                                      child: Container(
+                                        width: markerRadius * 2,
+                                        height: markerRadius * 2,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: isSelected
+                                              ? Colors.red
+                                              : const Color.fromRGBO(176, 148, 60, 1),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withValues(alpha: 0.3),
+                                              blurRadius: 4,
+                                              offset: const Offset(2, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            location.id.toString(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: markerRadius < 16 ? 10 : 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }
