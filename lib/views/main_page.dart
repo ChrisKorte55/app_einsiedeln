@@ -23,12 +23,21 @@ class _MainPageState extends State<MainPage> {
   int _currentPage = 0;
 
   final List<String> _imagePaths = [
-    'assets/images/kloster_front_snow_vert.jpg',
+    'assets/images/kloster_front_horz.jpg',
     'assets/images/kloster_statue_vert.jpg',
-    'assets/images/kloster_grass_vert.jpg',
+    'assets/images/01_Gnadenkapelle-008.jpg',
     'assets/images/kloster_sunset.jpg',
     'assets/images/kloster_chandelier.jpg',
-    'assets/images/kloster_facade.jpg'
+    'assets/images/kloster_facade.jpg',
+    'assets/images/03_Decken_und_Boden-023.jpg',
+    'assets/images/03_Decken_und_Boden-004.jpg',
+    'assets/images/kloster_gate_fog.jpg',
+    'assets/images/01_Gnadenkapelle-010.jpg',
+    'assets/images/kloster_mountain_horz2.JPG',
+    'assets/images/kloster_statue_fall.jpg',
+    'assets/images/07_Orgeln-015.jpg',
+    'assets/images/06_Unterer_Chor_0102.jpg',
+    'assets/images/10_Oranges_Fenster-002.jpg'
   ];
 
   @override
@@ -153,7 +162,7 @@ class _MainPageState extends State<MainPage> {
                           foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 6,
                         ),

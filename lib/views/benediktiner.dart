@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Benediktiner extends StatelessWidget {
   final Color primaryColor = Color.fromRGBO(176, 148, 60, 1);
 
-  // List of image asset paths.
   final List<String> images = [
     'assets/images/25_kloster_history_present_future.webp',
     'assets/images/07_kloster_workshops.webp',
@@ -15,28 +15,27 @@ class Benediktiner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLoc = AppLocalizations.of(context)!;
-    final textStyle = TextStyle(fontSize: 18.0, height: 1.5);
+    final textStyle = TextStyle(fontSize: 18.0, height: 1.5, color: Colors.grey[800]);
+    final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: primaryColor);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appLoc.benediktiner),
+        title: Text(appLoc.benediktiner, style: titleStyle),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
-        elevation: 2,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // First paragraph card
               Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
@@ -46,44 +45,41 @@ class Benediktiner extends StatelessWidget {
                   ),
                 ),
               ),
-              // Horizontal scrollable card with images
-              Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+              SizedBox(height: 20),
+              CarouselSlider(
+                options: CarouselOptions(
+                  aspectRatio: 16/9,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                  autoPlay: true,
                 ),
-                margin: EdgeInsets.only(bottom: 16),
-                child: Container(
-                  height: 200,
-                  padding: EdgeInsets.all(16),
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: images.length,
-                    separatorBuilder: (context, index) =>
-                        SizedBox(width: 16),
-                    itemBuilder: (context, index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          images[index],
-                          width: 150,
-                          height: 200,
-                          fit: BoxFit.cover,
+                items: images.map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          child: Image.asset(i, fit: BoxFit.cover),
                         ),
                       );
                     },
-                  ),
-                ),
+                  );
+                }).toList(),
               ),
-              // Second paragraph card
+              SizedBox(height: 20),
               Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     appLoc.benediktinerPar1,
                     style: textStyle,
@@ -91,15 +87,13 @@ class Benediktiner extends StatelessWidget {
                   ),
                 ),
               ),
-              // Third paragraph card
               Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     appLoc.benediktinerPar2,
                     style: textStyle,
@@ -107,15 +101,13 @@ class Benediktiner extends StatelessWidget {
                   ),
                 ),
               ),
-              // Fourth paragraph card
               Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     appLoc.benediktinerPar3,
                     style: textStyle,
@@ -123,15 +115,13 @@ class Benediktiner extends StatelessWidget {
                   ),
                 ),
               ),
-              // Fifth paragraph card
               Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     appLoc.benediktinerPar4,
                     style: textStyle,
