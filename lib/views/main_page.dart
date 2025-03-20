@@ -145,7 +145,7 @@ class _MainPageState extends State<MainPage> {
                           elevation: 6,
                         ),
                         child: Text(
-                          'Explore Tours',
+                          appLoc.heroScreenTourButton,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),

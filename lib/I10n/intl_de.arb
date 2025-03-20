@@ -5,21 +5,30 @@
   "welcomeMessage": "Wir freuen uns auf Ihren Besuch und heissen Sie schon jetzt herzlich willkommen!",
   "welcomeMonks": "-Abt Urban Federer und die Mönche des Klosters Einsiedeln",
   "introTextwelcome" : "Wir freuen uns über Ihr Interesse an unserer Klostergemeinschaft und dem unserer Sorge anvertrauten Wallfahrtsort. Das Kloster Einsiedeln ist eine traditionsreiche Benediktinerabtei, das Zuhause von rund vierzig Mönchen, der bedeutendste Wallfahrtsort der Schweiz und eine Stätte der Kultur, Bildung und Begegnung seit über tausend Jahren.",
+  "heroScreenTourButton" : "Kloster Entdecken",
+  "genQuestions" : "Allgemeine Anfragen",
+
   "eventsCalendar": "Event Kalender",
   "liveStream": "Gottesdienst",
   "newsLetter": "Salve Zeitschrift",
   "selfGuidedTour": "Kloster Tour",
   "onlineShop": "Online-Shop",
-  "kunstHistorischEinleitung" : "Am Anfang der...",
+  
+  "kunstHistorischEinleitung" : "Am Anfang der Geschichte Einsiedelns steht ein echter «Einsiedler», der heilige Meinrad. Geboren um 800 in Süddeutschland trat er schon in jungen Jahren in das Benediktinerkloster auf der Insel Reichenau im Bodensee ein. Später führte ihn der Wunsch, allein mit Gott in der Einsamkeit – eben als Einsiedler – zu leben, auf den Etzel, einen Pass zwischen Zürichsee und Einsiedeln. Um 835 baute er dort, wo heute das Kloster steht, eine kleine Hütte samt Kapelle. Hier suchte er Gott und diente den Menschen als Ratgeber, bis ihn am 21. Januar 861 zwei Räuber erschlugen./nZu seinem Gedenken wurde 934 das Kloster Einsiedeln gegründet, von Anfang an als Benediktinerkloster. Unter der Förderung verschiedener einflussreicher Personen wuchs der Ort bald zu einem bedeutenden Kloster heran./nDer Bau der heutigen Klosteranlage begann 1704 und war nach dreissig Jahren mehrheitlich fertiggestellt. Das ist für ein Gebäude dieser Grösse eine sehr kurze Zeit, sodass wir hier den barocken Kunststil in einer aussergewöhnlichen Reinheit vorfinden./nDer Ort zieht heute jährlich Hunderttausende von Besuchenden an – kunsthistorisch Interessierte sowie Pilgerinnen und Pilger, die hier Gott danken oder ihn um etwas bitten. Die Wallfahrt zum Einsiedler Gnadenbild ist seit dem Mittelalter belegt./nIm Kloster leben heute rund 40 Mönche jeden Alters in einem geregelten Tagesablauf, der durch sechs gemeinsame Gebetszeiten strukturiert ist. Neben dem Chorgebet und der Lesung, also dem persönlichen Studium, gehen wir verschiedenen Tätigkeiten nach, unter anderem in der Seelsorge. Wir führen auch ein eigenes Gymnasium mit Internat, die sogenannte Stiftsschule, in der gut 400 Jugendliche unterrichtet werden. Das Kloster Einsiedeln ist also ein Ort des Gebetes, der Kultur und der Bildung.",
+  "spirituelleEinleitung": "Seit jeher ziehen Menschen zu Orten, an denen sie Gottes Gegenwart in besonderer Weise erfahren, um Gott um etwas zu bitten oder ihm für etwas zu danken – im Christentum, aber auch in anderen Religionen. Es ist das Sich-Aufmachen, die bewusste Unterbrechung des gewöhnlichen Alltags, das Hingehen auf Gott zu sowie die Konzentration auf das Wesentliche, die eine solche Wallfahrt zu einer spirituellen Erfahrung machen. Genauso wichtig ist allerdings auch die Rückkehr an den angestammten Lebensort mit dem Versuch, das unterwegs Erlebte zu Hause fruchtbar zu machen./nAuch Einsiedeln ist ein solches Pilgerziel, wobei die Wallfahrt zum Einsiedler Gnadenbild seit dem 13. Jahrhundert belegt ist. Die Anfänge des Ortes reichen jedoch noch weiter, bis ins 9. Jahrhundert zurück, und beginnen mit dem heiligen Meinrad. Geboren um 800 in Süddeutschland trat er schon in jungen Jahren in das Benediktinerkloster auf der Insel Reichenau im Bodensee ein. Später führte ihn der Wunsch, mit Gott alleine in der Einsamkeit zu leben, auf den Etzel, einem Pass zwischen Zürichsee und Einsiedeln. Um 835 baute er an der Stelle, an dem heute das Kloster steht, eine kleine Klause samt Kapelle. Hier suchte er Gott als echter «Einsiedler» und diente den Menschen als Ratgeber, bis ihn am 21. Januar 861 zwei Räuber erschlugen. /nIm Jahre 934 wurde zu seinem Gedenken die Abtei Einsiedeln gegründet, von Anfang an als Benediktinerkloster. Unter der Förderung verschiedener einflussreicher Personen wuchs der Ort bald zu einem bedeutenden Kloster heran, bekannt für seine Treue in Gebet und Arbeit. Es folgte eine wechselvolle Geschichte mit manchen Höhen und Tiefen. /n1704 begannen die Mönche den Neubau ihrer Klosteranlage. Es entstand innerhalb von rund dreissig Jahren jener Barockbau, wie er sich heute zeigt. Das ist für ein Gebäude in solch grosszügigen Dimensionen eine sehr kurze Zeit, sodass wir hier den barocken Kunststil in einer aussergewöhnlichen Reinheit haben, ohne Einflüsse anderer Kunststile. /nIm Kloster leben heute rund 40 Mönche jeden Alters in einem geregelten Tagesablauf, der anhand von sechs gemeinsamen Gebetszeiten strukturiert ist. Die erste ist die Vigil um 5.30 Uhr. Neben dem Chorgebet und der Lesung – dem persönlichen Studium also – gehen wir verschiedenen Tätigkeitsbereichen nach, unter anderem in der Seelsorge. Auch führen wir ein eigenes Gymnasium samt Internat, die sogenannte Stiftsschule, in der gut 400 junge Menschen zur Schule gehen. Das Kloster Einsiedeln ist so ein Ort des Gebets, der Kultur und der Bildung.",
   "tourHomeText" : "Tour Angebote:",
-  "spiritualTour" : "Religöse Tour",
-  "historicalTour" : "Geschichte Tour",
+  "spiritualTour" : "Spirituelle Tour",
+  "historicalTour" : "Kunsthistorische Tour",
+  "miniMap" : "Gesamtübersicht",
+  
   "alltagImKloster" : "Ein Tag im Kloster",
   "alltagImKlosterIntro" : "Wie sieht denn ein Tag im Leben eines Mönchs aus? Diese Frage wird uns immer wieder gestellt, wenn Gruppen uns besuchen. Die äussere Struktur, der Tagesablauf, ist dabei schnell erzählt. Um seinem tieferen Sinn auf die Spur zu kommen, muss man ihn leben. Dann entdeckt man: Es geht um nichts weniger als um die Begegnung mit Gott.",
   "zumAlltag" : "Zum Tagesablauf",
+  
   "historyPage" : "Kloster Geschichte",
   "historyPageIntro" : "In der über tausendjährigen Klostergeschichte spiegelt sich die Geschichte von Kirche und Gesellschaft. Sie zeigt, dass unser Kloster keine Insel darstellt, sondern auf vielfältige Weise mit seiner Umwelt verbunden ist. Blüte und Niedergang, Idealismus und Dekadenz, Heiligkeit und Sünde, Licht und Schatten wechseln sich ab im Gang durch die Jahrhunderte. Und doch: Was im 9. Jahrhundert durch den heiligen Meinrad seinen Anfang nahm, hat auf vielfältige Weise Frucht getragen und ist für unzählige Menschen zum Segen geworden. Unsere Klostergemeinschaft kann so im 21. Jahrhundert auf ein gutes Fundament bauen und fühlt sich privilegiert, die Geschichte von Kloster und Wallfahrtsort weiterzuschreiben.",
+  
   "gemeinschaft" : "Gemeinschaft",
-  "benediktiner" : "Benediktiner",
-  "genQuestions" : "Allgemeine Anfragen"
+  "benediktiner" : "Benediktiner"
+  
 }

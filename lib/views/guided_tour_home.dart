@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'tour_location_detail_views.dart';
+import 'kloster_tour_outside.dart';
 
 class GuidedTourHome extends StatelessWidget {
   final Color accentColor = const Color.fromRGBO(176, 148, 60, 1);
@@ -28,54 +29,76 @@ class GuidedTourHome extends StatelessWidget {
           ),
 
           // **📜 Main Content**
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // **📍 Title Section**
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
-                  child: Text(
-                    'Explore our guided tours\nSpiritual & Historic',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: accentColor,
-                      letterSpacing: 0.5, // Slightly spaced letters for elegance
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // **📍 Title Section**
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: Text(
+                      'Explore our guided tours\nSpiritual & Historic',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: accentColor,
+                        letterSpacing: 0.5, // Slightly spaced letters for elegance
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ),
 
-                // **🛤️ Spiritual Tour Button**
-                _buildTourButton(
-                  context,
-                  label: appLoc.spiritualTour,
-                  imagePath: 'assets/images/05_Herz-Jesu-009.jpg',
-                  onPressed: () {
-                    Provider.of<TourTypeProvider>(context, listen: false).setTourType('spiritual');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TourLocationDetailView()),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
+                  // **🛤️ Spiritual Tour Button**
+                  _buildTourButton(
+                    context,
+                    label: appLoc.spiritualTour,
+                    imagePath: 'assets/images/05_Herz-Jesu-009.jpg',
+                    onPressed: () {
+                      Provider.of<TourTypeProvider>(context, listen: false)
+                          .setTourType('spiritual');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TourLocationDetailView()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
 
-                // **🏛️ Historical Tour Button**
-                _buildTourButton(
-                  context,
-                  label: appLoc.historicalTour,
-                  imagePath: 'assets/images/03_Decken_und_Boden-008.jpg',
-                  onPressed: () {
-                    Provider.of<TourTypeProvider>(context, listen: false).setTourType('historical');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TourLocationDetailView()),
-                    );
-                  },
-                ),
-              ],
+                  // **🏛️ Historical Tour Button**
+                  _buildTourButton(
+                    context,
+                    label: appLoc.historicalTour,
+                    imagePath: 'assets/images/03_Decken_und_Boden-008.jpg',
+                    onPressed: () {
+                      Provider.of<TourTypeProvider>(context, listen: false)
+                          .setTourType('historical');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TourLocationDetailView()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+
+                  // **🚶 Tour Outside Button**
+                  _buildTourButton(
+                    context,
+                    label: 'Tour Outside',
+                    imagePath: 'assets/images/kloster_front_horz3.jpg',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TourOutside()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ],
@@ -84,7 +107,10 @@ class GuidedTourHome extends StatelessWidget {
   }
 
   /// **🎨 Modernized Tour Button**
-  Widget _buildTourButton(BuildContext context, {required String label, required String imagePath, required VoidCallback onPressed}) {
+  Widget _buildTourButton(BuildContext context,
+      {required String label,
+      required String imagePath,
+      required VoidCallback onPressed}) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.75, // **Wider button for better touch experience**
       height: 160, // **Better height for clear visibility**

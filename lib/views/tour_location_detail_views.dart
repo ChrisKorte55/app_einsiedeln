@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';
 import 'package:app_einsiedeln/services/csv_loader.dart';
 import 'package:app_einsiedeln/models/tour_location_csv.dart';
@@ -8,12 +9,13 @@ import 'package:app_einsiedeln/widgets/interactive_blueprint.dart'; // Import ne
 class TourLocationDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appLoc = AppLocalizations.of(context)!;
     final tourType = Provider.of<TourTypeProvider>(context).tourType;
     final isGerman = Localizations.localeOf(context).languageCode == 'de';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(tourType == 'historical' ? 'Historical Tour' : 'Spiritual Tour'),
+        title: Text(tourType == 'historical' ? appLoc.historicalTour : appLoc.spiritualTour),
       ),
       body: FutureBuilder<List<TourLocation>>(
         future: TourDataLoader().loadTourData(tourType, isGerman),
