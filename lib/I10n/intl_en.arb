@@ -10,11 +10,15 @@
   
   "eventsCalendar": "Event Calender",
   "liveStream": "Services",
+
   "newsLetter": "Salve Newsletter",
+  "newsLetterIntro" : "Four times a year, our magazine Salve offers a glimpse into life behind the walls of the Einsiedeln and Fahr monasteries, along with the institutions associated with them. Our newsletter is only available in german.",
+
   "selfGuidedTour": "Cloister Tour",
   "onlineShop": "Online Shop",
   
   "kunstHistorischEinleitung" : "Am Anfang der...",
+  "spirituelleEinleitung": "Seit jeher zi...",
   "tourHomeText" : "Offered Tours:",
   "spiritualTour" : "Spiritual Tour",
   "historicalTour" : "Art History Tour",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SalvePage extends StatelessWidget {
   const SalvePage({Key? key}) : super(key: key);
@@ -7,6 +8,7 @@ class SalvePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final appLoc = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -18,7 +20,7 @@ class SalvePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Vier Mal im Jahr lässt Sie unsere Zeitschrift salve einen Blick auf das Leben hinter den Einsiedler und Fahrer Klostermauern samt den mit ihnen verbundenen Institutionen werfen.",
+                  appLoc.newsLetterIntro,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black87,

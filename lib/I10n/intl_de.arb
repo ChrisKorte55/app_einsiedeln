@@ -10,7 +10,10 @@
 
   "eventsCalendar": "Event Kalender",
   "liveStream": "Gottesdienst",
-  "newsLetter": "Salve Zeitschrift",
+
+  "newsLetter" : "Salve Zeitschrift",
+  "newsLetterIntro" : "Vier Mal im Jahr lässt Sie unsere Zeitschrift salve einen Blick auf das Leben hinter den Einsiedler und Fahrer Klostermauern samt den mit ihnen verbundenen Institutionen werfen.",
+
   "selfGuidedTour": "Kloster Tour",
   "onlineShop": "Online-Shop",
   
