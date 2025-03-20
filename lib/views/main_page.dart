@@ -153,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                           foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           elevation: 6,
                         ),

@@ -36,9 +36,9 @@ class GuidedTourHome extends StatelessWidget {
                 children: <Widget>[
                   // **📍 Title Section**
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
+                    padding: const EdgeInsets.only(bottom: 20, top: 20),
                     child: Text(
-                      'Explore our guided tours\nSpiritual & Historic',
+                      appLoc.tourHomeText,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

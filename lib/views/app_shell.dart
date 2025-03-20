@@ -10,6 +10,7 @@ import '/views/salve_newsletter_page.dart';
 import '/widgets/custom_navigation_bar.dart';
 import '/services/locale_provider.dart';
 
+
 class AppShell extends StatefulWidget {
   @override
   _AppShellState createState() => _AppShellState();
@@ -22,10 +23,10 @@ class _AppShellState extends State<AppShell> {
 
   final List<String> _titles = [
     " ",
-    "Events",
+    " ",
     "Live Stream",
     "Salve Newsletter",
-    "Guided Tour",
+    " ",
   ];
 
   @override
@@ -65,6 +66,7 @@ class _AppShellState extends State<AppShell> {
     bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     bool isLiveStreamPage = _selectedIndex == 2;
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+    
 
     return Scaffold(
       backgroundColor: Colors.white, // **Ensures entire background is white**
