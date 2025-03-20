@@ -20,7 +20,7 @@ class _KlosterHistoryPageState extends State<KlosterHistoryPage> {
   }
 
   Future<void> loadHistoryData() async {
-    final String csvString = await rootBundle.loadString('kloster_history_texts.csv');
+    final String csvString = await rootBundle.loadString('assets/kloster_history_texts.csv');
     List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(csvString);
 
     setState(() {

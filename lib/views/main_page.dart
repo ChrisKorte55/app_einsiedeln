@@ -204,7 +204,7 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 children: [
                   Text(
-                    'Allgemeine Anfragen',
+                    appLoc.genQuestions,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -213,7 +213,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Kloster Einsiedeln\nCH-8840 Einsiedeln\nTel. +41 55 418 61 11',
+                    'Kloster Einsiedeln\nCH-8840 Einsiedeln\nTel. +41 55 418 61 11\nkloster@kloster-einsiedeln.ch',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
