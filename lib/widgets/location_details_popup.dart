@@ -68,59 +68,7 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                           height: 200,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Text(
-                        isHistorical
-                            ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
-                            : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
-                        style: const TextStyle(fontSize: 16, height: 1.5),
-                        textAlign: TextAlign.justify,
-                      ),
-                      const SizedBox(height: 20),
-                      if (location.otherImageNames.isNotEmpty)
-                        CarouselSlider(
-                          options: CarouselOptions(
-                            height: 180,
-                            enableInfiniteScroll: false,
-                            enlargeCenterPage: true,
-                          ),
-                          items: location.otherImageNames.map((imageName) {
-                            return GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      backgroundColor: Colors.transparent,
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.of(context).pop(),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(10),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(15),
-                                            child: Image.asset(
-                                              'assets/images/$imageName',
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.asset(
-                                  'assets/images/$imageName',
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),  // Added padding between image and button
                       ElevatedButton.icon(
                         onPressed: () {
                           launchUrl(Uri.parse(donationUrl));
@@ -133,7 +81,66 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
+                      Text(
+                        isHistorical
+                            ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
+                            : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
+                        style: const TextStyle(fontSize: 16, height: 1.5),
+                        textAlign: TextAlign.justify,
+                      ),
+                      if (location.otherImageNames.isNotEmpty)
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 250,  // Adjusted height for better aspect ratio maintenance
+                            enableInfiniteScroll: true,
+                            enlargeCenterPage: true,
+                            viewportFraction: 0.8,  // Adjusted for maintaining aspect ratio
+                            aspectRatio: 16/9,  // Specify an aspect ratio for image display
+                            initialPage: 0,
+                          ),
+                          items: location.otherImageNames.map((imageName) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          backgroundColor: Colors.transparent,
+                                          child: GestureDetector(
+                                            onTap: () => Navigator.of(context).pop(),
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(15),
+                                                child: Image.asset(
+                                                  'assets/images/$imageName',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.asset(
+                                        'assets/images/$imageName',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
                     ],
                   ),
                 ),
