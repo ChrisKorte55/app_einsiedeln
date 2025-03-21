@@ -262,35 +262,44 @@ class _MainPageState extends State<MainPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Instagram Button
                       IconButton(
-                        icon: Icon(Icons.camera_alt),
+                        icon: Image.asset('assets/images/Instagram.webp', width: 24, height: 24), // Set width and height
                         onPressed: () async {
                           final Uri url = Uri.parse('https://www.instagram.com/kloster_einsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
+                        iconSize: 50, // This will set the clickable area size
                       ),
+                      SizedBox(width: 10), // Spacing between buttons
+                      // Facebook Button
                       IconButton(
-                        icon: Icon(Icons.facebook),
+                        icon: Image.asset('assets/images/Facebook.png', width: 24, height: 24), // Set width and height
                         onPressed: () async {
                           final Uri url = Uri.parse('https://www.facebook.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
+                        iconSize: 50, // This will set the clickable area size
                       ),
+                      SizedBox(width: 10), // Spacing between buttons
+                      // YouTube Button
                       IconButton(
-                        icon: Icon(Icons.video_library),
+                        icon: Image.asset('assets/images/youtube.png', width: 24, height: 24), // Set width and height
                         onPressed: () async {
                           final Uri url = Uri.parse('https://www.youtube.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
+                        iconSize: 50, // This will set the clickable area size
                       ),
                     ],
                   ),
+
                 ],
               ),
             ),

@@ -9,6 +9,7 @@ class Benediktiner extends StatelessWidget {
     'assets/images/07_kloster_workshops.webp',
     'assets/images/kloster_engelweihe.jpg',
     'assets/images/kloster_profess.jpg',
+    'assets/images/kloster_saint_sky.jpg'
   ];
 
   @override
@@ -37,6 +38,7 @@ class Benediktiner extends StatelessWidget {
             textCard(appLoc.benediktinerPar3, textStyle),
             imageCard(images[3]),
             textCard(appLoc.benediktinerPar4, textStyle),
+            imageCard(images[4])
           ],
         ),
       ),
