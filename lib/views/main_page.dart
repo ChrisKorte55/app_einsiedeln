@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
     'assets/images/kloster_mountain_horz2.JPG',
     'assets/images/kloster_statue_fall.jpg',
     'assets/images/07_Orgeln-015.jpg',
-    'assets/images/06_Unterer_Chor_0102.jpg',
+    'assets/images/06_Unterer_Chor-0102.jpg',
     'assets/images/10_Oranges_Fenster-002.jpg'
   ];
 
