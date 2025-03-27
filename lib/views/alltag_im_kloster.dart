@@ -56,13 +56,13 @@ class _AllTagImKlosterState extends State<AllTagImKloster> {
 
   IconData getIconFromOrder(String order) {
     switch (order) {
-      case '1': return Icons.light;
+      case '1': return Icons.alarm;
       case '2': return Icons.wb_twilight;
       case '3': return Icons.wb_sunny;
-      case '4': return Icons.work_off_rounded;
+      case '4': return Icons.work_rounded;
       case '5': return Icons.church;
       case '6': return Icons.restaurant;
-      case '7': return Icons.nightlight_round;
+      case '7': return Icons.church;
       case '8': return Icons.menu_book;
       case '9': return Icons.coffee;
       case '10': return Icons.bedtime;

@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "welcome": "Herzlich willkommen im",
+  "welcome": "Herzlich Willkommen im",
   "klosterName" :  "Kloster Einsiedeln",
   "welcomeMessage": "Wir freuen uns auf Ihren Besuch und heissen Sie schon jetzt herzlich willkommen!",
   "welcomeMonks": "-Abt Urban Federer und die Mönche des Klosters Einsiedeln",
@@ -32,7 +32,10 @@
   "historyPage" : "Kloster Geschichte",
   "historyPageIntro" : "In der über tausendjährigen Klostergeschichte spiegelt sich die Geschichte von Kirche und Gesellschaft. Sie zeigt, dass unser Kloster keine Insel darstellt, sondern auf vielfältige Weise mit seiner Umwelt verbunden ist. Blüte und Niedergang, Idealismus und Dekadenz, Heiligkeit und Sünde, Licht und Schatten wechseln sich ab im Gang durch die Jahrhunderte. Und doch: Was im 9. Jahrhundert durch den heiligen Meinrad seinen Anfang nahm, hat auf vielfältige Weise Frucht getragen und ist für unzählige Menschen zum Segen geworden. Unsere Klostergemeinschaft kann so im 21. Jahrhundert auf ein gutes Fundament bauen und fühlt sich privilegiert, die Geschichte von Kloster und Wallfahrtsort weiterzuschreiben.",
   
-  "gemeinschaft" : "Gemeinschaft",
+  "wahlfahrt" : "Wahlfahrt",
+  "wahlfahrtIntro" : " ",
+  "wahlfahrtHistory" : " ",
+
 
   "benediktiner" : "Benediktiner",
   "benediktinerIntro" : "Wir Mönche im Kloster Einsiedeln sind Benediktiner: Wir folgen der Mönchsregel des heiligen Benedikt von Nursia. Für den heiligen Benedikt (480-547) ist das Leben des Mönchs eine Suche nach Gott in der Nachfolge Jesu unter der Führung des Evangeliums. Das Leben von uns Einsiedler Benediktinern spielt sich im Rhythmus von Gebet, Lesung, Arbeit und Stille ab.",

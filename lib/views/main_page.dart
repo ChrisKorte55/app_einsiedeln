@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app_einsiedeln/views/benediktiner.dart';
-import 'package:app_einsiedeln/views/gemeinschaft.dart';
+import 'package:app_einsiedeln/views/wahlfahrt.dart';
 import 'package:app_einsiedeln/views/history.dart';
 import 'alltag_im_kloster.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -98,7 +98,10 @@ class _MainPageState extends State<MainPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.black.withValues(alpha: 0.3), Colors.transparent],
+                        colors: [
+                          Colors.black.withValues(alpha: 0.3),
+                          Colors.transparent
+                        ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
@@ -113,7 +116,10 @@ class _MainPageState extends State<MainPage> {
                     height: 140,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.white, Colors.white.withValues(alpha: 0)],
+                        colors: [
+                          Colors.white,
+                          Colors.white.withValues(alpha: 0)
+                        ],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                       ),
@@ -127,8 +133,7 @@ class _MainPageState extends State<MainPage> {
                       Text(
                         appLoc.welcome,
                         style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
                           color: Colors.white,
                           shadows: [
                             Shadow(
@@ -160,7 +165,8 @@ class _MainPageState extends State<MainPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(176, 148, 60, 1),
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -168,7 +174,8 @@ class _MainPageState extends State<MainPage> {
                         ),
                         child: Text(
                           appLoc.heroScreenTourButton,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -176,27 +183,38 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
+            // Container with intro text now has a background image (kloster_sillouette.png)
             Container(
-              color: Colors.white,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/kloster_silouette.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white.withValues(alpha: 0.6),
+                    BlendMode.modulate,
+                  ),
+                ),
+              ),
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               child: Column(
                 children: [
                   Text(
                     appLoc.introTextwelcome,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                   SizedBox(height: 15),
                   Text(
                     appLoc.welcomeMessage,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.black87),
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                   SizedBox(height: 20),
                   Text(
                     appLoc.welcomeMonks,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                    style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
                 ],
               ),
@@ -225,7 +243,7 @@ class _MainPageState extends State<MainPage> {
                   AboutUsButton(
                     label: appLoc.gemeinschaft,
                     imagePath: 'assets/images/kloster_saint_trees_horz.jpg',
-                    onPressed: () => _navigateTo(Gemeinschaft()),
+                    onPressed: () => _navigateTo(Wahlfahrt()),
                   ),
                   AboutUsButton(
                     label: appLoc.benediktiner,
@@ -236,70 +254,77 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             SizedBox(height: 40),
+            // Bottom section with updated background image
             Container(
-              color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/kloster_front_horizon_sillouette.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white.withValues(alpha: 0.3),
+                    BlendMode.modulate,
+                  ),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Column(
                 children: [
                   Text(
                     appLoc.genQuestions,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,),
                   ),
                   SizedBox(height: 8),
                   Text(
                     'Kloster Einsiedeln\nCH-8840 Einsiedeln\nTel. +41 55 418 61 11\nkloster@kloster-einsiedeln.ch',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold ),
                   ),
                   SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Instagram Button
                       IconButton(
-                        icon: Image.asset('assets/images/Instagram.webp', width: 24, height: 24), // Set width and height
+                        icon: Image.asset('assets/images/Instagram.webp',
+                            width: 30, height: 30),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.instagram.com/kloster_einsiedeln');
+                          final Uri url = Uri.parse(
+                              'https://www.instagram.com/kloster_einsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
-                        iconSize: 50, // This will set the clickable area size
+                        iconSize: 50,
                       ),
-                      SizedBox(width: 10), // Spacing between buttons
-                      // Facebook Button
+                      SizedBox(width: 10),
                       IconButton(
-                        icon: Image.asset('assets/images/Facebook.png', width: 24, height: 24), // Set width and height
+                        icon: Image.asset('assets/images/Facebook.png',
+                            width: 30, height: 30),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.facebook.com/KlosterEinsiedeln');
+                          final Uri url = Uri.parse(
+                              'https://www.facebook.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
-                        iconSize: 50, // This will set the clickable area size
+                        iconSize: 50,
                       ),
-                      SizedBox(width: 10), // Spacing between buttons
-                      // YouTube Button
+                      SizedBox(width: 10),
                       IconButton(
-                        icon: Image.asset('assets/images/youtube.png', width: 24, height: 24), // Set width and height
+                        icon: Image.asset('assets/images/youtube.png',
+                            width: 35, height: 35),
                         onPressed: () async {
-                          final Uri url = Uri.parse('https://www.youtube.com/KlosterEinsiedeln');
+                          final Uri url = Uri.parse(
+                              'https://www.youtube.com/KlosterEinsiedeln');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }
                         },
-                        iconSize: 50, // This will set the clickable area size
+                        iconSize: 50,
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -319,8 +344,12 @@ class AboutUsButton extends StatelessWidget {
   final String imagePath;
   final VoidCallback onPressed;
 
-  const AboutUsButton({Key? key, required this.label, required this.imagePath, required this.onPressed})
-      : super(key: key);
+  const AboutUsButton({
+    Key? key,
+    required this.label,
+    required this.imagePath,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -335,7 +364,10 @@ class AboutUsButton extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black.withValues(alpha: 0.5), Colors.transparent],
+                  colors: [
+                    Colors.black.withValues(alpha: 0.5),
+                    Colors.transparent
+                  ],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                 ),
