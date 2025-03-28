@@ -241,8 +241,8 @@ class _MainPageState extends State<MainPage> {
                     onPressed: () => _navigateTo(KlosterHistoryPage()),
                   ),
                   AboutUsButton(
-                    label: appLoc.gemeinschaft,
-                    imagePath: 'assets/images/kloster_saint_trees_horz.jpg',
+                    label: appLoc.wahlfahrt,
+                    imagePath: 'assets/images/01_Gnadenkapelle-010.jpg',
                     onPressed: () => _navigateTo(Wahlfahrt()),
                   ),
                   AboutUsButton(
