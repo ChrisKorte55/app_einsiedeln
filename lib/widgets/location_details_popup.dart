@@ -68,7 +68,21 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                           height: 200,
                         ),
                       ),
-                      const SizedBox(height: 10),  // Added padding between image and button
+                      const SizedBox(height: 10),
+                      Text(
+                        isHistorical
+                            ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
+                            : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
+                        style: const TextStyle(fontSize: 16, height: 1.5),
+                        textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        appLoc.donationText,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 10),
                       ElevatedButton.icon(
                         onPressed: () {
                           launchUrl(Uri.parse(donationUrl));
@@ -82,13 +96,6 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        isHistorical
-                            ? (isGerman ? location.descriptionGermanHistorical : location.descriptionEnglishHistorical)
-                            : (isGerman ? location.descriptionGermanSpiritual : location.descriptionEnglishSpiritual),
-                        style: const TextStyle(fontSize: 16, height: 1.5),
-                        textAlign: TextAlign.justify,
-                      ),
                       if (location.otherImageNames.isNotEmpty)
                         CarouselSlider(
                           options: CarouselOptions(
@@ -96,7 +103,7 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                             enableInfiniteScroll: true,
                             enlargeCenterPage: true,
                             viewportFraction: 0.8,  // Adjusted for maintaining aspect ratio
-                            aspectRatio: 16/9,  // Specify an aspect ratio for image display
+                            aspectRatio: 16 / 9,  // Specify an aspect ratio for image display
                             initialPage: 0,
                           ),
                           items: location.otherImageNames.map((imageName) {
