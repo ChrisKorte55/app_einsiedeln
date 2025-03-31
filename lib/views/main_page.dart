@@ -167,9 +167,9 @@ class _MainPageState extends State<MainPage> {
                           backgroundColor: Color.fromRGBO(176, 148, 60, 1),
                           foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 12),
+                              horizontal: 30, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           elevation: 6,
                         ),
