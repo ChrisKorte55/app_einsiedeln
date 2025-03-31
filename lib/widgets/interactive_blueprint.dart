@@ -87,22 +87,36 @@ class InteractiveBlueprint extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // Center the label under the marker.
                             Positioned(
-                              left: xPosition - 40,
+                              left: xPosition,
                               top: yPosition + 20,
-                              child: SizedBox(
-                                width: 80,
-                                child: Text(
-                                  location.name,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1.2,
+                              child: FractionalTranslation(
+                                translation: Offset(-0.5, 0.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 4, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white
+                                        .withValues(alpha: 0.7),
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
+                                  child: ConstrainedBox(
+                                    constraints:
+                                        BoxConstraints(maxWidth: 80),
+                                    child: Text(
+                                      location.name,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.2,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -111,10 +125,11 @@ class InteractiveBlueprint extends StatelessWidget {
                       }).toList(),
                       // Visitor Entrance text at the bottom left of the floorplan
                       Positioned(
-                        left: 8,
+                        left: 30,
                         bottom: 8,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 3),
                           decoration: BoxDecoration(
                             color: redColor,
                             borderRadius: BorderRadius.circular(4),
@@ -240,7 +255,8 @@ class InteractiveBlueprint extends StatelessWidget {
                             left: textX,
                             top: textY,
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 3),
                               decoration: BoxDecoration(
                                 color: redColor,
                                 borderRadius: BorderRadius.circular(1),
