@@ -1,3 +1,4 @@
+//lib/views/guided_tour_home.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_einsiedeln/services/tour_type_provider.dart';

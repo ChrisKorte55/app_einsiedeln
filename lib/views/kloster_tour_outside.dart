@@ -1,3 +1,4 @@
+//lib/views/kloster_tour_outside.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;

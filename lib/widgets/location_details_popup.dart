@@ -1,3 +1,4 @@
+//lib/widgets/location_details_popup.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_einsiedeln/models/tour_location_csv.dart';

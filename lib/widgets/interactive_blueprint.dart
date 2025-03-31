@@ -1,3 +1,4 @@
+//lib/widgets/interactive_blueprint.dart
 import 'package:flutter/material.dart';
 import 'package:app_einsiedeln/models/tour_location_csv.dart';
 import 'package:app_einsiedeln/widgets/location_details_popup.dart';
