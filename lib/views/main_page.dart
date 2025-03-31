@@ -241,7 +241,7 @@ class _MainPageState extends State<MainPage> {
                     onPressed: () => _navigateTo(KlosterHistoryPage()),
                   ),
                   AboutUsButton(
-                    label: appLoc.wahlfahrt,
+                    label: appLoc.wallfahrt,
                     imagePath: 'assets/images/01_Gnadenkapelle-010.jpg',
                     onPressed: () => _navigateTo(Wahlfahrt()),
                   ),
@@ -317,6 +317,19 @@ class _MainPageState extends State<MainPage> {
                         onPressed: () async {
                           final Uri url = Uri.parse(
                               'https://www.youtube.com/KlosterEinsiedeln');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          }
+                        },
+                        iconSize: 50,
+                      ),
+                      SizedBox(width: 10),
+                      IconButton(
+                        icon: Image.asset('assets/images/website_icon.png',
+                            width: 30, height: 30),
+                        onPressed: () async {
+                          final Uri url = Uri.parse(
+                              'https://www.kloster-einsiedeln.ch/');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           }

@@ -16,7 +16,7 @@ class Wahlfahrt extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appLoc.wahlfahrt, style: titleStyle),
+        title: Text(appLoc.wallfahrt, style: titleStyle),
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
@@ -25,9 +25,9 @@ class Wahlfahrt extends StatelessWidget {
         color: Colors.white, // Set the background to white
         child: ListView(
           children: <Widget>[
-            textCard(appLoc.wahlfahrtIntro, textStyle),
+            textCard(appLoc.wallfahrtIntro, textStyle),
             imageCard(images[0]),
-            textCard(appLoc.wahlfahrtHistory, textStyle),
+            textCard(appLoc.wallfahrtHistory, textStyle),
           ],
         ),
       ),

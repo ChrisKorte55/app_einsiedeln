@@ -3,7 +3,7 @@
   "welcome": "Welcome to the",
   "klosterName" : "Einsiedeln Monastery",
   "welcomeMessage": "We look forward to your visit and would already like to extend a warm welcome to you!",
-  "welcomeMonks": "- Abbot Urban Federer and the monks of Einsiedeln Abbey",
+  "welcomeMonks": "Abbot Urban Federer and the monks of Einsiedeln Abbey",
   "introTextwelcome" : "We appreciate your interest in our monastic community and the pilgrimage site entrusted to our care. Einsiedeln Abbey is a historic Benedictine monastery, home to around forty monks, the most important pilgrimage site in Switzerland, and a place of culture, education, and encounter for over a thousand years.",
   "heroScreenTourButton" : "Explore the Monastery",
   "genQuestions" : "General Inquiries",
@@ -32,9 +32,9 @@
   "historyPage" : "Monastery History",
   "historyPageIntro" : "In its over thousand-year history, the monastery reflects the history of the Church and society. It shows that our monastery is not an island, but is connected in many ways to its environment. Flourishing and decline, idealism and decadence, holiness and sin, light and shadow alternate through the centuries. Yet, what began in the 9th century with Saint Meinrad has borne fruit in many ways and has become a blessing to countless people. Thus, our monastic community in the 21st century can build upon a solid foundation and feels privileged to continue writing the story of the monastery and pilgrimage site.",
   
-  "wahlfahrt" : "Pilgrimage",
-  "wahlfahrtIntro" : "We monks of Einsiedeln Abbey are entrusted with the pilgrimage to Our Lady of Einsiedeln. The Benedictine Abbey and Marian pilgrimage form a unique combination in Einsiedeln. Together with our staff, we strive to create a place here where encounters are possible—with God, with people, and with oneself.",
-  "wahlfahrtHistory" : "Einsiedeln is not a pilgrimage site based on a Marian apparition. Einsiedeln is a place of pilgrimage with a long tradition—a very long tradition with a strong monastic influence. In Einsiedeln, the monastery and the pilgrimage form a unique symbiosis, turning the sanctuary of the Mother of God in the heart of Switzerland into a Benedictine pilgrimage site. The history of pilgrimage in Einsiedeln begins with the simple cell of Saint Meinrad (+861), and over the centuries, it has made Einsiedeln the most important Marian pilgrimage site in Switzerland. The pilgrimage in the classical sense certainly dates back to the 12th century in Einsiedeln. Early written records from the early 14th century casually mention pilgrimages to Einsiedeln and also indicate that they were quite significant.",
+  "wallfahrt" : "Pilgrimage",
+  "wallfahrtIntro" : "We monks of Einsiedeln Abbey are entrusted with the pilgrimage to Our Lady of Einsiedeln. The Benedictine Abbey and Marian pilgrimage form a unique combination in Einsiedeln. Together with our staff, we strive to create a place here where encounters are possible—with God, with people, and with oneself.",
+  "wallfahrtHistory" : "Einsiedeln is not a pilgrimage site based on a Marian apparition. Einsiedeln is a place of pilgrimage with a long tradition—a very long tradition with a strong monastic influence. In Einsiedeln, the monastery and the pilgrimage form a unique symbiosis, turning the sanctuary of the Mother of God in the heart of Switzerland into a Benedictine pilgrimage site. The history of pilgrimage in Einsiedeln begins with the simple cell of Saint Meinrad (+861), and over the centuries, it has made Einsiedeln the most important Marian pilgrimage site in Switzerland. The pilgrimage in the classical sense certainly dates back to the 12th century in Einsiedeln. Early written records from the early 14th century casually mention pilgrimages to Einsiedeln and also indicate that they were quite significant.",
 
   "benediktiner" : "Benedictines",
   "benediktinerIntro" : "We monks at Einsiedeln Abbey are Benedictines: We follow the monastic rule of Saint Benedict of Nursia. For Saint Benedict (480-547), the life of a monk is a search for God in the footsteps of Jesus, guided by the Gospel. The life of us Einsiedeln Benedictines unfolds in the rhythm of prayer, reading, work, and silence.",

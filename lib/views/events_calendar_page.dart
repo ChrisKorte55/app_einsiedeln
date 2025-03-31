@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventsPage extends StatelessWidget {
   const EventsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appLoc = AppLocalizations.of(context)!;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -13,11 +15,11 @@ class EventsPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Text(
-              "Upcoming Events Schedule",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              appLoc.eventsCalendar,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
@@ -33,7 +35,7 @@ class EventsPage extends StatelessWidget {
                     style="border-radius: 10px; border: 1px solid #ccc;"
                   ></iframe>
                 ''',
-                key: UniqueKey(), // Ensures the iframe reloads correctly
+                key: UniqueKey(),
               ),
             ),
           ),
