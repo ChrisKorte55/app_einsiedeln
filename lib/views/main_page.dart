@@ -274,7 +274,7 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Text(
                     appLoc.genQuestions,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,), //coment
                   ),
                   SizedBox(height: 8),
                   Text(
