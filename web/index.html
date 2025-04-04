@@ -64,6 +64,13 @@
 </head>
 <body>
 
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('install')==='yes') {
+       alert("On an iPhone, please\n 1. Tap the Share button in the menu bar\n 2. Scroll down the list of options, then tap Add to Home Screen.\n\n....\nOn an Android, please ...");
+    }
+   </script>
+ 
   <!-- Flutter App -->
   <script src="flutter_bootstrap.js" async></script>
 
