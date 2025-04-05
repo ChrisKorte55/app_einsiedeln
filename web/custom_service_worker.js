@@ -13,7 +13,8 @@ const RESOURCES = {
 
 // Install Service Worker and Pre-Cache Resources
 self.addEventListener("install", (event) => {
-  self.skipWaiting(); // Activate new service worker immediately
+  self.skipWaiting();
+  console.log('[Service Worker] Trying to initialize...') // Activate new service worker immediately
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('[Service Worker] Pre-caching all resources...');
@@ -24,6 +25,7 @@ self.addEventListener("install", (event) => {
 
 // Activate Event - Clean Old Caches and Take Control
 self.addEventListener("activate", (event) => {
+  console.log('[Service Worker] Trying to delete old cache...')
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
