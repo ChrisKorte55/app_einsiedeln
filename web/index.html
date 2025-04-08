@@ -43,8 +43,16 @@
     }
    </script>
  
-  <!-- Flutter App -->
-  <script src="flutter_bootstrap.js" async></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      console.log("About to pre-cache everything")
+      navigator.serviceWorker.ready.then(function(registration) {
+        console.log("Precaching ...")
+        registration.active.postMessage('downloadOffline');
+      });
+    }
+  </script>
 
 </body>
 </html>

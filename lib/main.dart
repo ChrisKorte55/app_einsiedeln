@@ -63,8 +63,8 @@ class MyApp extends StatelessWidget {
 
       // Define the locales that the app supports.
       supportedLocales: const [
-        Locale('en'), // English.
         Locale('de'), // German.
+        Locale('en'), // English.
       ],
 
       // Locale resolution callback to determine which locale to use.
