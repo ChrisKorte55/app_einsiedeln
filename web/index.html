@@ -36,23 +36,5 @@
   <script src="flutter_bootstrap.js" async></script>
 
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('install')==='yes') {
-       alert("On an iPhone, please\n 1. Tap the Share button in the menu bar\n 2. Scroll down the list of options, then tap Add to Home Screen.\n\n\nOn an Android, please\n 1. Press the three dot icon in the upper right to open the menu\n 2. Select Add to Home screen.\n 3. Press the Add button in the popup.");
-    }
-   </script>
- 
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      console.log("About to pre-cache everything")
-      navigator.serviceWorker.ready.then(function(registration) {
-        console.log("Precaching ...")
-        registration.active.postMessage('downloadOffline');
-      });
-    }
-  </script>
-
 </body>
 </html>
