@@ -1,4 +1,4 @@
-//lib/views/main_page.dart
+// lib/views/main_page.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,6 +7,7 @@ import 'package:app_einsiedeln/views/wahlfahrt.dart';
 import 'package:app_einsiedeln/views/history.dart';
 import 'alltag_im_kloster.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'install_instructions.dart'; // Import the popup widget
 
 class MainPage extends StatefulWidget {
   final VoidCallback onNavigateToGuidedTour;
@@ -44,6 +45,22 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    
+    // Check for the query parameter "install" with value "yes"
+    final installParam = Uri.base.queryParameters["install"];
+    if (installParam?.toLowerCase() == "yes") {
+      // Ensure that the context is available before showing the dialog.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const InstallInstructions();
+          },
+        );
+      });
+    }
+
+    // Set up the timer for page view auto animation.
     _timer = Timer.periodic(const Duration(seconds: 6), (Timer timer) {
       if (_currentPage < _imagePaths.length - 1) {
         _currentPage++;
@@ -185,7 +202,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              // Container with intro text now has a background image (kloster_sillouette.png)
+              // Container with intro text now has a background image (kloster_silouette.png)
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -290,9 +307,10 @@ class _MainPageState extends State<MainPage> {
                       'Kloster Einsiedeln\nCH-8840 Einsiedeln\nTel. +41 55 418 61 11\nkloster@kloster-einsiedeln.ch',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 15),
                     Row(
@@ -392,7 +410,7 @@ class AboutUsButton extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withValues(alpha: 0.5),
+                    Colors.black.withOpacity(0.5),
                     Colors.transparent
                   ],
                   begin: Alignment.bottomCenter,
