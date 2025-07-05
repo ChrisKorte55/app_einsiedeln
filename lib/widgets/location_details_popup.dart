@@ -89,7 +89,7 @@ void showLocationDetails(BuildContext context, TourLocation location) {
                           launchUrl(Uri.parse(donationUrl));
                         },
                         icon: const Icon(Icons.favorite, color: Colors.white),
-                        label: const Text("Donate", style: TextStyle(fontSize: 18, color: Colors.black)),
+                        label: Text(appLoc.donationButton, style: TextStyle(fontSize: 18, color: Colors.black)),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(176, 148, 60, 1),
                           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
