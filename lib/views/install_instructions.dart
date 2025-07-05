@@ -42,7 +42,7 @@ class InstallInstructions extends StatelessWidget {
             const Text("Deutsch:", style: languageTextStyle),
             // German iPhone: inline image next to the word "Teilen-Schaltfläche"
             _buildInlineRichInstructionStep(
-              leftText: "1. Tippe auf das Share menü ",
+              leftText: "1. Tippe auf das Sharemenü ",
               imagePath: "assets/images/iphoneshare.png",
               rightText: " in der Menüleiste.",
               textStyle: textStyle,
