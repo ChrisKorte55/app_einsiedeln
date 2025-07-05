@@ -31,7 +31,7 @@ class SalvePage extends StatelessWidget {
               ),
             HtmlWidget(
               '''
-              <iframe src="https://www.kloster-einsiedeln.ch/_blaetterpdf/salve_2024/salve_2024_05/" 
+              <iframe src="https://www.kloster-einsiedeln.ch/_blaetterpdf/salve_2025/salve_2025_02/files/assets/common/downloads/publication.pdf" 
               style="width:100%; height:800px; border:none;"></iframe>
               '''
             ),
